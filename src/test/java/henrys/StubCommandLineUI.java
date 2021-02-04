@@ -2,14 +2,13 @@ package henrys;
 
 public class StubCommandLineUI implements RegisterUI {
 
-  private boolean showedStartMesage;
+  private boolean showedStartMessage;
 
-  @Override
   public void displayStartMessage() {
-    showedStartMesage = true;
+    showedStartMessage = true;
   }
 
   public boolean showedStartMessage(){
-    return showedStartMesage;
+    return showedStartMessage;
   }
 }
