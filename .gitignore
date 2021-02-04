@@ -1,0 +1,23 @@
+.idea*
+*.iws
+
+# IntelliJ
+/out/
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# auto-generated tag files
+tags
+
+# Gradle
+bin/
+build/
+.gradle
+.gradletasknamecache
+gradle-app.setting
+!gradle-wrapper.jar
+
+.DS_Store
