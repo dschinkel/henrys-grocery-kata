@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ResourceTest {
   @Test
-  void starting_register_displays_start_message() {
+  void startRegister_displaysStartMessage() {
     StubCommandLineUI ui = new StubCommandLineUI();
     Register register = new Register(ui);
 
