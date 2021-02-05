@@ -20,8 +20,15 @@ public class Calculator {
       if(stockItem.getItemId() == 2){
         total += calculateTotalForMilk(stockItem);
       }
+      if(stockItem.getItemId() == 3){
+        total += calculateTotalForApples(stockItem);
+      }
     }
     return total;
+  }
+
+  private Double calculateTotalForApples(StockItem stockItem) {
+    return stockItem.getQuantityPurchased() * .10;
   }
 
   private Double calculateTotalForMilk(StockItem stockItem) {

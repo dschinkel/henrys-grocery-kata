@@ -51,10 +51,10 @@ public class CalculatorTest {
   }
 
   @Test
-  void calculates_totalPrice_purchasedItems_milk() {
-    StockItem milk = createStockItem(2,1);
+  void calculates_totalPrice_purchasedItems_apples() {
+    StockItem milk = createStockItem(3,1);
     purchasedItems.add(milk);
-    Double expectedTotalPrice = 1.30;
+    Double expectedTotalPrice = .10;
 
     Double total = calculator.calculateTotalPriceForItems(purchasedItems);
 
