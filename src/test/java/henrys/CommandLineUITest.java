@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CalculatorUITest {
+public class CommandLineUITest {
   private ByteArrayOutputStream output;
 
   @BeforeEach
@@ -21,4 +21,5 @@ public class CalculatorUITest {
     ui.displayStartMessage();
     assertTrue(output.toString().contains("Ready for Checkout"));
   }
+
 }
