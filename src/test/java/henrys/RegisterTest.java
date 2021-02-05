@@ -3,11 +3,9 @@ package henrys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ResourceTest {
+class RegisterTest {
   private StubCommandLineUI ui;
   private StockItemRepository repository;
   private Register register;
