@@ -2,6 +2,9 @@ package henrys;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CommandLineUI implements RegisterUI {
   private final PrintStream outputStream;
@@ -15,6 +18,14 @@ public class CommandLineUI implements RegisterUI {
   }
 
   public void displayStartMessage() {
-    outputStream.print("Ready for Checkout");
+    outputStream.print("READY FOR CHECKOUT!\n");
+  }
+
+  public void displayItemsForSelection(Map<Integer, String> stockItems) {
+    StringBuilder message = new StringBuilder("Please specify an item by typing the item number: ");
+    stockItems.forEach((itemIndex, itemName) ->
+      message.append(String.format("%d:%s ", itemIndex, itemName))
+    );
+    outputStream.print(message.toString());
   }
 }
