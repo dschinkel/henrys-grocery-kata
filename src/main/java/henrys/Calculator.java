@@ -1,8 +1,11 @@
 package henrys;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Calculator {
+  Map<Integer, String> allStockItems;
+
   public Double calculateTotalPriceForItems(ArrayList<StockItem> purchasedItems) {
     Double total = tallyTotal(purchasedItems);
     return total;
@@ -10,36 +13,23 @@ public class Calculator {
 
   private Double tallyTotal(ArrayList<StockItem> purchasedItems) {
     Double total = 0.00;
+
     for (StockItem stockItem : purchasedItems) {
-      if(stockItem.getItemId() == 0) {
-        total += calculateTotalForSoup(stockItem);
+      Integer stockItemId = stockItem.getItemId();
+      if(stockItemId.equals(StockItem.ItemName.SOUP.valueOf("SOUP").ordinal())) {
+        total += stockItem.calculateTotalForSoup();
       }
-      if(stockItem.getItemId() == 1){
-        total += calculateTotalForBread(stockItem);
+      if(stockItemId.equals(StockItem.ItemName.BREAD.valueOf("BREAD").ordinal())){
+        total += stockItem.calculateTotalForBread();
       }
-      if(stockItem.getItemId() == 2){
-        total += calculateTotalForMilk(stockItem);
+      if(stockItemId.equals(StockItem.ItemName.MILK.valueOf("MILK").ordinal())){
+        total += stockItem.calculateTotalForMilk();
       }
-      if(stockItem.getItemId() == 3){
-        total += calculateTotalForApples(stockItem);
+      if(stockItemId.equals(StockItem.ItemName.APPLES.valueOf("APPLES").ordinal())){
+        total += stockItem.calculateTotalForApples();
       }
     }
     return total;
   }
 
-  private Double calculateTotalForApples(StockItem stockItem) {
-    return stockItem.getQuantityPurchased() * .10;
-  }
-
-  private Double calculateTotalForMilk(StockItem stockItem) {
-    return stockItem.getQuantityPurchased() * 1.30;
-  }
-
-  private Double calculateTotalForBread(StockItem stockItem) {
-    return stockItem.getQuantityPurchased() * .80;
-  }
-
-  private double calculateTotalForSoup(StockItem stockItem) {
-    return stockItem.getQuantityPurchased() * .65;
-  }
 }
