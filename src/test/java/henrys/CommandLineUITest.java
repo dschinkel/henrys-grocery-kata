@@ -39,7 +39,7 @@ public class CommandLineUITest {
   }
 
   @Test
-  void promptFor_InventoryItem_Selection() {
+  void promptFor_inventoryItem_Selection() {
     String promptForInventoryItem = "Please Specify an Item by Number:\n";
     String selectedItem = "0";
     input.setInputStream(selectedItem);
@@ -51,15 +51,14 @@ public class CommandLineUITest {
   }
 
   @Test
-  void promptFor_InventoryItem_Quantity_Message() {
+  void promptFor_inventoryItem_Quantity_Message() {
     String promptForItemQuantity = "Please Specify a Qty (e.g. 1, 2, 3, etc.) for this item:\n";
     ui.promptForInventoryItemQuantityMessage();
     assertEquals(promptForItemQuantity, output.toString());
   }
 
-
   @Test
-  void promptFor_InventoryItem_Quantity() {
+  void promptFor_inventoryItem_Quantity() {
     String selectedItemQty = "1";
     input.setInputStream(selectedItemQty);
 
