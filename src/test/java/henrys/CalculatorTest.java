@@ -20,4 +20,5 @@ public class CalculatorTest {
 
     assertEquals(expectedTotalPrice, total);
   }
+
 }

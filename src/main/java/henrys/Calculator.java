@@ -11,12 +11,12 @@ public class Calculator {
   private Double tallyTotal(ArrayList<StockItem> purchasedItems) {
     Double total = 0.00;
     for (StockItem stockItem : purchasedItems) {
-      total += calculateTotalForBread(stockItem);
+      total += calculateTotalForSoup(stockItem);
     }
     return total;
   }
 
-  private double calculateTotalForBread(StockItem stockItem) {
+  private double calculateTotalForSoup(StockItem stockItem) {
     return stockItem.getQuantityPurchased() * .65;
   }
 }
