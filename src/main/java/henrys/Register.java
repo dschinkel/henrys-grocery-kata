@@ -26,6 +26,7 @@ public class Register {
     Double totalPrice = 0.00;
     if(noItems(itemsWithQuantity)) return totalPrice.toString();
     ArrayList<StockItem> purchasedItems = convertItemsToStockItems(itemsWithQuantity);
+
     totalPrice = getTotalPrice(purchasedItems);
 
     return totalPrice.toString();
