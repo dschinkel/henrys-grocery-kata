@@ -18,6 +18,10 @@ public class Register {
     ui.displayStartMessage();
     ui.displayItemsForSelection(this.stockItemRepository.findAll());
     Map<Integer, Integer> itemsWithQuantity = ui.inputAllItems();
+    displayTotalPrice(itemsWithQuantity);
+  }
+
+  private void displayTotalPrice(Map<Integer, Integer> itemsWithQuantity) {
     String totalPrice = calculateTotalPrice(itemsWithQuantity);
     ui.displayTotalPrice(totalPrice);
   }
