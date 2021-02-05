@@ -61,6 +61,19 @@ public class CalculatorTest {
     assertEquals(expectedTotalPrice, total);
   }
 
+  @Test
+  void calculates_totalPrice_multiplePurchasedItems() {
+    StockItem soup = createStockItem(0,1);
+    purchasedItems.add(soup);
+    StockItem milk = createStockItem(2,1);
+    purchasedItems.add(milk);
+    Double expectedTotalPrice = 1.95;
+
+    Double total = calculator.calculateTotalPriceForItems(purchasedItems);
+
+    assertEquals(expectedTotalPrice, total);
+  }
+
   private StockItem createStockItem(Integer itemId, Integer quantity) {
     StockItem stockItem = new StockItem();
     stockItem.setItemId(itemId);

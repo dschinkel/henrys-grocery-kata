@@ -1,15 +1,16 @@
 package henrys;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Calculator {
-  Map<Integer, String> allStockItems;
-
   public Double calculateTotalPriceForItems(ArrayList<StockItem> purchasedItems) {
     Double total = tallyTotal(purchasedItems);
     return total;
   }
+
 
   private Double tallyTotal(ArrayList<StockItem> purchasedItems) {
     Double total = 0.00;
@@ -29,7 +30,15 @@ public class Calculator {
         total += stockItem.calculateTotalForApples();
       }
     }
-    return total;
+
+    Double formattedTotal = formatDoubleToPrecisionOfTwo(total);
+    return formattedTotal;
+  }
+
+  private Double formatDoubleToPrecisionOfTwo(Double value) {
+    DecimalFormat formatDecimal = new DecimalFormat("##.00");
+    Double formattedValue = Double.parseDouble(formatDecimal.format(value));
+    return formattedValue;
   }
 
 }
