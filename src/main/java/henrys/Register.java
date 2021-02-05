@@ -24,19 +24,30 @@ public class Register {
 
   public String calculateTotalPrice(Map<Integer, Integer> itemsWithQuantity) {
     Double totalPrice = 0.00;
+    if(noItems(itemsWithQuantity)) return totalPrice.toString();
+    ArrayList<StockItem> purchasedItems = convertItemsToStockItems(itemsWithQuantity);
+    totalPrice = getTotalPrice(purchasedItems);
+
+    return totalPrice.toString();
+  }
+
+  private Double getTotalPrice(ArrayList<StockItem> purchasedItems) {
+    return calculator.calculateTotalPriceForItems(purchasedItems);
+  }
+
+  private boolean noItems(Map<Integer, Integer> itemsWithQuantity) {
+    return itemsWithQuantity == null;
+  }
+
+  private ArrayList<StockItem> convertItemsToStockItems(Map<Integer, Integer> itemsWithQuantity) {
     ArrayList<StockItem> purchasedItems = new ArrayList<>();
 
-    if(itemsWithQuantity == null) return totalPrice.toString();
-
-    for (Map.Entry<Integer,Integer> item : itemsWithQuantity.entrySet()) {
+    for (Map.Entry<Integer, Integer> item : itemsWithQuantity.entrySet()) {
       StockItem stockItem = new StockItem();
       stockItem.setQuantityPurchased(item.getValue());
       purchasedItems.add(stockItem);
     }
 
-     totalPrice = calculator.calculateTotalPriceForItems(purchasedItems);
-
-    return totalPrice.toString();
+    return purchasedItems;
   }
-
-}
+};

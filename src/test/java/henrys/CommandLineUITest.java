@@ -92,30 +92,6 @@ public class CommandLineUITest {
     assertEquals(finalMessage, output.toString());
   }
 
- /* @Test
-  void stores_multiple_entered_inventoryItems() {
-    String soup = "0";
-    String soupQty = "1";
-    String bread = "1";
-    String breadQty = "2";
-    Map<Integer, Integer> enteredItems = new HashMap<Integer, Integer>();
-    enteredItems.put(0, 1);
-    enteredItems.put(1, 2);
-
-    input.setInputStream(soup);
-//    ui.inputAllItems();
-    input.setInputStream(soupQty);
-//    ui.inputAllItems();
-    input.setInputStream(bread);
-//    ui.inputAllItems();
-    input.setInputStream(breadQty);
-//    ui.inputAllItems();
-    input.setInputStream("d");
-    Map<Integer, Integer> basketOfItems = ui.inputAllItems();
-
-    assertEquals(enteredItems, basketOfItems);
-  }*/
-
   private Map<Integer, String> getStockItems(){
     Map<Integer, String> stockItems = new HashMap<Integer, String>();
     stockItems.put(0, "soup");
