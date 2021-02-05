@@ -46,7 +46,14 @@ public class CommandLineUI implements RegisterUI {
   }
 
   @Override
-  public void promptForInventoryItemQuantity() {
+  public String promptForInventoryItemQuantity() {
+    promptForInventoryItemQuantityMessage();
+    return getUserInput();
+  }
+
+
+  @Override
+  public void promptForInventoryItemQuantityMessage() {
     outputStream.println("Please Specify a Qty (e.g. 1, 2, 3, etc.) for this item:");
   }
 
