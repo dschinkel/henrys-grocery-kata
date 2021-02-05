@@ -49,7 +49,8 @@ public class CommandLineUI implements RegisterUI {
 
     enteredItems.put(Integer.parseInt(itemId), Integer.parseInt(itemQty));
     inputAllItems();
-    return null;
+
+    return enteredItems;
   }
 
   @Override

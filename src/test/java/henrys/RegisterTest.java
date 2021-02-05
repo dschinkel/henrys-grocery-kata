@@ -13,12 +13,14 @@ class RegisterTest {
   private StubCommandLineUI ui;
   private StockItemRepository repository;
   private Register register;
+  private Calculator calculator;
 
   @BeforeEach
   void setUp() {
     ui = new StubCommandLineUI();
     repository = new StockItemRepository();
-    register = new Register(ui, repository);
+    calculator = new Calculator();
+    register = new Register(ui, repository, calculator);
   }
 
   @Test
@@ -43,12 +45,10 @@ class RegisterTest {
   void calculates_totalPrice_oneOfEachItem_noDiscount() {
     Map<Integer, Integer> itemsWithQuantity = new HashMap<Integer, Integer>();
     itemsWithQuantity.put(0, 1);
-    itemsWithQuantity.put(1, 1);
-    itemsWithQuantity.put(2, 1);
-    itemsWithQuantity.put(3, 1);
 
+    String expectedPrice = "0.65";
     String totalPrice = register.calculateTotalPrice(itemsWithQuantity);
 
-    assertEquals(totalPrice, "2.85");
+    assertEquals(expectedPrice, totalPrice);
   }
 }
