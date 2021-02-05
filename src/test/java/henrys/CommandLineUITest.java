@@ -31,11 +31,11 @@ public class CommandLineUITest {
   void display_items_toSelectFrom() {
     CommandLineUI ui = new CommandLineUI(input, output);
     Map<Integer, String> stockItems = new HashMap<Integer, String>();
-    stockItems.put(0, "soup");
+    stockItems.put(0, "soup");0
     stockItems.put(1, "bread");
     stockItems.put(2, "milk");
     stockItems.put(3, "apples");
-    String finalMessage = "Items in Stock: 0:soup 1:bread 2:milk 3:apples ";
+    String finalMessage = "Items in Stock: 0:soup 1:bread 2:milk 3:apples \n";
 
     ui.displayItemsForSelection(stockItems);
 
@@ -45,7 +45,7 @@ public class CommandLineUITest {
   @Test
   void promptFor_InventoryItem_Selection() {
     CommandLineUI ui = new CommandLineUI(input, output);
-    String promptForInventoryItemMessage = "\nPlease Specify an Item by Number:\n";
+    String promptForInventoryItemMessage = "Please Specify an Item by Number:\n";
     input.setInputStream("0");
 
     String userInput = ui.promptForInventoryItemSelection();

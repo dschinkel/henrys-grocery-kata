@@ -24,7 +24,7 @@ public class CommandLineUI implements RegisterUI {
   }
 
   public void displayStartMessage() {
-    outputStream.print("READY FOR CHECKOUT!\n");
+    outputStream.println("READY FOR CHECKOUT!");
   }
 
   public void displayItemsForSelection(Map<Integer, String> stockItems) {
@@ -32,12 +32,12 @@ public class CommandLineUI implements RegisterUI {
     stockItems.forEach((itemIndex, itemName) ->
       message.append(String.format("%d:%s ", itemIndex, itemName))
     );
-    outputStream.print(message.toString());
+    outputStream.println(message.toString());
   }
 
   @Override
   public String promptForInventoryItemSelection() {
-    outputStream.print("\nPlease Specify an Item by Number:\n");
+    outputStream.println("Please Specify an Item by Number:");
     while (scanner.hasNextLine()) {
       return scanner.nextLine();
     }
