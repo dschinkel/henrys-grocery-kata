@@ -1,15 +1,24 @@
 package henrys;
 
+import static henrys.StockItem.ItemName.*;
+
 public class StockItem {
   private int quantityPurchased = 0;
   private int itemId;
-  enum ItemName {
-    SOUP,
-    BREAD,
-    MILK,
-    APPLES
-  }
 
+
+
+  enum ItemName {
+    SOUP(0), BREAD(1), MILK(2), APPLES(3);
+    private int value = 0;
+
+    ItemName(int value) {
+      this.value = value;
+    }
+    public int getValue() {
+      return value;
+    }
+  }
 
   public void setQuantityPurchased(int quantityPurchased) {
     this.quantityPurchased = quantityPurchased;
@@ -27,19 +36,19 @@ public class StockItem {
     return itemId;
   }
 
-  double calculateTotalForSoup() {
-    return getQuantityPurchased() * .65;
-  }
-
-  Double calculateTotalForBread() {
-    return getQuantityPurchased() * .80;
-  }
-
-  Double calculateTotalForMilk() {
-    return getQuantityPurchased() * 1.30;
-  }
-
-  Double calculateTotalForApples() {
-    return getQuantityPurchased() * .10;
+  Double calculateStockItemTotalCost(Double total, Integer stockItemId) {
+    if(stockItemId.equals(SOUP.getValue())) {
+      total += getQuantityPurchased() * .65;
+    }
+    if(stockItemId.equals(BREAD.getValue())){
+      total += getQuantityPurchased() * .80;
+    }
+    if(stockItemId.equals(MILK.getValue())){
+      total += getQuantityPurchased() * 1.30;
+    }
+    if(stockItemId.equals(APPLES.getValue())){
+      total += getQuantityPurchased() * .10;
+    }
+    return total;
   }
 }

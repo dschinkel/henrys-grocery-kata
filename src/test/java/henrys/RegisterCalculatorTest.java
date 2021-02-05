@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CalculatorTest {
-  Calculator calculator;
+public class RegisterCalculatorTest {
+  RegisterCalculator registerCalculator;
   ArrayList<StockItem> purchasedItems;
 
   @BeforeEach
   void setUp() {
-    calculator = new Calculator();
+    registerCalculator = new RegisterCalculator();
     purchasedItems = new ArrayList<StockItem>();
   }
 
@@ -23,7 +23,7 @@ public class CalculatorTest {
     purchasedItems.add(soup);
     Double expectedTotalPrice = .65;
 
-    Double total = calculator.calculateTotalPriceForItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -34,7 +34,7 @@ public class CalculatorTest {
     purchasedItems.add(bread);
     Double expectedTotalPrice = .80;
 
-    Double total = calculator.calculateTotalPriceForItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -45,18 +45,18 @@ public class CalculatorTest {
     purchasedItems.add(milk);
     Double expectedTotalPrice = 1.30;
 
-    Double total = calculator.calculateTotalPriceForItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
 
     assertEquals(expectedTotalPrice, total);
   }
 
   @Test
   void calculates_totalPrice_purchasedItems_apples() {
-    StockItem milk = createStockItem(3,1);
-    purchasedItems.add(milk);
+    StockItem apples = createStockItem(3,1);
+    purchasedItems.add(apples);
     Double expectedTotalPrice = .10;
 
-    Double total = calculator.calculateTotalPriceForItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -69,7 +69,7 @@ public class CalculatorTest {
     purchasedItems.add(milk);
     Double expectedTotalPrice = 1.95;
 
-    Double total = calculator.calculateTotalPriceForItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
 
     assertEquals(expectedTotalPrice, total);
   }

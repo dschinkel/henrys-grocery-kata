@@ -13,14 +13,14 @@ class RegisterTest {
   private StubCommandLineUI ui;
   private StockItemRepository repository;
   private Register register;
-  private Calculator calculator;
+  private RegisterCalculator registerCalculator;
 
   @BeforeEach
   void setUp() {
     ui = new StubCommandLineUI();
     repository = new StockItemRepository();
-    calculator = new Calculator();
-    register = new Register(ui, repository, calculator);
+    registerCalculator = new RegisterCalculator();
+    register = new Register(ui, repository, registerCalculator);
   }
 
   @Test

@@ -6,12 +6,12 @@ import java.util.Map;
 public class Register {
   private final RegisterUI ui;
   private final StockItemRepository stockItemRepository;
-  private Calculator calculator;
+  private RegisterCalculator registerCalculator;
 
-  Register(RegisterUI ui, StockItemRepository stockItemRepository, Calculator calculator){
+  Register(RegisterUI ui, StockItemRepository stockItemRepository, RegisterCalculator registerCalculator){
     this.ui = ui;
     this.stockItemRepository = stockItemRepository;
-    this.calculator = calculator;
+    this.registerCalculator = registerCalculator;
   }
 
   public void start() {
@@ -37,7 +37,7 @@ public class Register {
   }
 
   private Double getTotalPrice(ArrayList<StockItem> purchasedItems) {
-    return calculator.calculateTotalPriceForItems(purchasedItems);
+    return registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
   }
 
   private boolean noItems(Map<Integer, Integer> itemsWithQuantity) {
