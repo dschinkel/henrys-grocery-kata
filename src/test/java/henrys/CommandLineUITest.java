@@ -40,14 +40,23 @@ public class CommandLineUITest {
 
   @Test
   void promptFor_InventoryItem_Selection() {
-    String promptForInventoryItemMessage = "Please Specify an Item by Number:\n";
-    input.setInputStream("0");
+    String promptForInventoryItem = "Please Specify an Item by Number:\n";
+    String selectedItem = "0";
+    input.setInputStream(selectedItem);
 
     String userInput = ui.promptForInventoryItemSelection();
 
-    assertEquals("0", userInput);
-    assertEquals(promptForInventoryItemMessage, output.toString());
+    assertEquals(selectedItem, userInput);
+    assertEquals(promptForInventoryItem, output.toString());
   }
+
+  @Test
+  void promptFor_InventoryItem_Quantity() {
+    String promptForItemQuantity = "Please Specify a Qty (e.g. 1, 2, 3, etc.) for this item:\n";
+    ui.promptForInventoryItemQuantity();
+    assertEquals(promptForItemQuantity, output.toString());
+  }
+
 
   private Map<Integer, String> getStockItems(){
     Map<Integer, String> stockItems = new HashMap<Integer, String>();

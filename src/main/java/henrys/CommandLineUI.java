@@ -45,6 +45,11 @@ public class CommandLineUI implements RegisterUI {
     outputStream.println("Please Specify an Item by Number:");
   }
 
+  @Override
+  public void promptForInventoryItemQuantity() {
+    outputStream.println("Please Specify a Qty (e.g. 1, 2, 3, etc.) for this item:");
+  }
+
   private String getUserInput() {
     while (scanner.hasNextLine()) {
       return scanner.nextLine();

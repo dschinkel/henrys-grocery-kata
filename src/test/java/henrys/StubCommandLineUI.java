@@ -23,6 +23,10 @@ public class StubCommandLineUI implements RegisterUI {
     return "";
   }
 
+  @Override
+  public void promptForInventoryItemQuantity() {
+  }
+
   public boolean showedStartMessage(){
     return showedStartMessage;
   }

@@ -6,4 +6,5 @@ public interface  RegisterUI {
   void displayStartMessage();
   void displayItemsForSelection(Map<Integer, String> stockItems);
   String promptForInventoryItemSelection();
+  void promptForInventoryItemQuantity();
 }
