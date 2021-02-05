@@ -51,7 +51,7 @@ public class CommandLineUITest {
   }
 
   @Test
-  void promptFor_InventoryItem_Quantity() {
+  void promptFor_InventoryItem_Quantity_Message() {
     String promptForItemQuantity = "Please Specify a Qty (e.g. 1, 2, 3, etc.) for this item:\n";
     ui.promptForInventoryItemQuantity();
     assertEquals(promptForItemQuantity, output.toString());
