@@ -14,6 +14,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
+run {
+    standardInput = System.in
+}
+
 application {
     mainClass = 'henrys.Shop'
 }

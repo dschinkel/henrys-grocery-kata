@@ -30,4 +30,10 @@ class ResourceTest {
     register.start();
     assertTrue(ui.showedItemsList());
   }
+
+  @Test
+  void startRegister_promptsFor_InventoryItemSelection() {
+    register.start();
+    assertTrue(ui.promptedForInventoryItemSelection());
+  }
 }
