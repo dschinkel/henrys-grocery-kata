@@ -8,4 +8,10 @@ public interface  RegisterUI {
   String promptForInventoryItemSelection();
   void promptForInventoryItemQuantityMessage();
   String promptForInventoryItemQuantity();
+  Map<Integer, Integer> inputAllItems();
+  void promptForDoneMessage();
+
+  String promptforDone();
+
+  void displayTotalPrice(String price);
 }

@@ -12,6 +12,8 @@ public class Register {
   public void start() {
     ui.displayStartMessage();
     ui.displayItemsForSelection(this.stockItemRepository.findAll());
-    ui.promptForInventoryItemSelection();
+    ui.inputAllItems();
+    ui.displayTotalPrice("100");
   }
+
 }

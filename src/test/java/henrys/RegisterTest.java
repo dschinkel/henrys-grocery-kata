@@ -3,6 +3,11 @@ package henrys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterTest {
@@ -24,14 +29,15 @@ class RegisterTest {
   }
 
   @Test
-  void startRegister_displaysList_InventoryItems_forSelection() {
+  void startRegister_displaysList_inventoryItems_forSelection() {
     register.start();
     assertTrue(ui.showedItemsList());
   }
 
   @Test
-  void startRegister_promptsFor_InventoryItemSelection() {
+  void startRegister_displays_totalPrice() {
     register.start();
-    assertTrue(ui.promptedForInventoryItemSelection());
+    assertTrue(ui.showedTotalPrice());
   }
+
 }
