@@ -1,4 +1,4 @@
-# Java Exercise
+  # Java Exercise
 
 This is a simple exercise to allow you to demostrate your software engineering skillset. It's completly up to you how long you give yourself, stop when you're happy with the quality of your work, but we don't expect it to take too long.
 

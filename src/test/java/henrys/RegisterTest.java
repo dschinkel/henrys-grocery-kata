@@ -3,11 +3,10 @@ package henrys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterTest {
@@ -40,4 +39,16 @@ class RegisterTest {
     assertTrue(ui.showedTotalPrice());
   }
 
+  @Test
+  void calculates_totalPrice_oneOfEachItem_noDiscount() {
+    Map<Integer, Integer> itemsWithQuantity = new HashMap<Integer, Integer>();
+    itemsWithQuantity.put(0, 1);
+    itemsWithQuantity.put(1, 1);
+    itemsWithQuantity.put(2, 1);
+    itemsWithQuantity.put(3, 1);
+
+    String totalPrice = register.calculateTotalPrice(itemsWithQuantity);
+
+    assertEquals(totalPrice, "2.85");
+  }
 }
