@@ -37,12 +37,19 @@ public class CommandLineUI implements RegisterUI {
 
   @Override
   public String promptForInventoryItemSelection() {
+    promptForInventoryItem();
+    return getUserInput();
+  }
+
+  private void promptForInventoryItem() {
     outputStream.println("Please Specify an Item by Number:");
+  }
+
+  private String getUserInput() {
     while (scanner.hasNextLine()) {
       return scanner.nextLine();
     }
     scanner.close();
     return null;
   }
-
 }
