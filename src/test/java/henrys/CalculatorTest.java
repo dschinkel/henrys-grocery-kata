@@ -21,4 +21,18 @@ public class CalculatorTest {
     assertEquals(expectedTotalPrice, total);
   }
 
+  @Test
+  void calculates_totalPrice_purchasedItems_bread() {
+    Calculator calculator = new Calculator();
+    StockItem bread = new StockItem();
+    bread.setItemId(1);
+    bread.setQuantityPurchased(1);
+    ArrayList<StockItem> purchasedItems = new ArrayList<StockItem>();
+    purchasedItems.add(bread);
+    Double expectedTotalPrice = .80;
+
+    Double total = calculator.calculateTotalPriceForItems(purchasedItems);
+
+    assertEquals(expectedTotalPrice, total);
+  }
 }
