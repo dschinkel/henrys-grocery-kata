@@ -44,6 +44,7 @@ public class CommandLineUI implements RegisterUI {
     String done = promptforDone();
 
     if(done.equals("d")) {
+      enteredItems.put(Integer.parseInt(itemId), Integer.parseInt(itemQty));
       return enteredItems;
     }
 
