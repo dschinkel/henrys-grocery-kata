@@ -1,33 +1,33 @@
 package henrys;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ResourceTest {
+  private StubCommandLineUI ui;
+  private StockItemRepository repository;
+  private Register register;
+
+  @BeforeEach
+  void setUp() {
+    ui = new StubCommandLineUI();
+    repository = new StockItemRepository();
+    register = new Register(ui, repository);
+  }
+
   @Test
   void startRegister_displaysStartMessage() {
-    StubCommandLineUI ui = new StubCommandLineUI();
-    StockItemRepository repository = new StockItemRepository();
-    Register register = new Register(ui, repository);
-
     register.start();
-
     assertTrue(ui.showedStartMessage());
   }
 
   @Test
-  void startRegister_displaysList_Items_forSelection() {
-    StubCommandLineUI ui = new StubCommandLineUI();
-    StockItemRepository repository = new StockItemRepository();
-    Register register = new Register(ui, repository);
-
+  void startRegister_displaysList_InventoryItems_forSelection() {
     register.start();
-
     assertTrue(ui.showedItemsList());
   }
 }

@@ -1,6 +1,5 @@
 package henrys;
 
-import java.util.Hashtable;
 import java.util.Map;
 
 public interface  RegisterUI {

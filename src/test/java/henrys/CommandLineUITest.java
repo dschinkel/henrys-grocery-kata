@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,5 +39,7 @@ public class CommandLineUITest {
 
     assertEquals(finalMessage, output.toString());
   }
+
+
 
 }

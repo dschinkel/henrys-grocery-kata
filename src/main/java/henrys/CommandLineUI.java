@@ -2,9 +2,7 @@ package henrys;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.Hashtable;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class CommandLineUI implements RegisterUI {
   private final PrintStream outputStream;
