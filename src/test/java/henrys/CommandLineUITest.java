@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,14 +13,14 @@ public class CommandLineUITest {
   private ByteArrayOutputStream output;
   private StubInputStream input;
   CommandLineUI ui;
-  ArrayList<StockItem> stockItems;
+  ArrayList<StockItem> stockItemsDB;
 
   @BeforeEach
   void setUp() {
     output = new ByteArrayOutputStream();
     input = new StubInputStream();
     ui = new CommandLineUI(input, output);
-    stockItems = new StockItemRepository().findAll();
+    stockItemsDB = new StockItemRepository().findAll();
   }
 
   @Test
@@ -34,7 +32,7 @@ public class CommandLineUITest {
   @Test
   void display_items_toSelectFrom() {
     String finalMessage = "Items in Stock: 0:soup 1:bread 2:milk 3:apples \n";
-    ui.displayItemsForSelection(stockItems);
+    ui.displayItemsForSelection(stockItemsDB);
     assertEquals(finalMessage, output.toString());
   }
 

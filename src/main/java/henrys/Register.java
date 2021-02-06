@@ -7,11 +7,13 @@ public class Register {
   private final RegisterUI ui;
   private final StockItemRepository stockItemRepository;
   private RegisterCalculator registerCalculator;
+  ArrayList<StockItem> stockItemsDB;
 
   Register(RegisterUI ui, StockItemRepository stockItemRepository, RegisterCalculator registerCalculator){
     this.ui = ui;
     this.stockItemRepository = stockItemRepository;
     this.registerCalculator = registerCalculator;
+    stockItemsDB = new StockItemRepository().findAll();
   }
 
   public void start() {
@@ -50,6 +52,7 @@ public class Register {
     for (Map.Entry<Integer, Integer> item : itemsWithQuantity.entrySet()) {
       StockItem stockItem = new StockItem();
       stockItem.setQuantityPurchased(item.getValue());
+      stockItem.setPricePerUnit(stockItemsDB.get(item.getKey()).getItemPricePerUnit());
       purchasedItems.add(stockItem);
     }
 

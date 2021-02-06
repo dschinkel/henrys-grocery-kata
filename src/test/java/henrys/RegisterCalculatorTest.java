@@ -10,11 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RegisterCalculatorTest {
   RegisterCalculator registerCalculator;
   ArrayList<StockItem> purchasedItems;
+  ArrayList<StockItem> stockItemsDB;
 
   @BeforeEach
   void setUp() {
     registerCalculator = new RegisterCalculator();
     purchasedItems = new ArrayList<StockItem>();
+    stockItemsDB = new StockItemRepository().findAll();
   }
 
   @Test
@@ -78,6 +80,7 @@ public class RegisterCalculatorTest {
     StockItem stockItem = new StockItem();
     stockItem.setItemId(itemId);
     stockItem.setQuantityPurchased(quantity);
+    stockItem.setPricePerUnit(stockItemsDB.get(itemId).getItemPricePerUnit());
     return stockItem;
   }
 }

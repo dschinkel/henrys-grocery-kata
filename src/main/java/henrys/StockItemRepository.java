@@ -1,8 +1,6 @@
 package henrys;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class StockItemRepository {
 
@@ -11,7 +9,7 @@ public class StockItemRepository {
     stockItems.add(createStockItem(0, "soup", .65));
     stockItems.add(createStockItem(1, "bread", .80));
     stockItems.add(createStockItem(2, "milk", 1.30));
-    stockItems.add(createStockItem(3, "apples", 1.30));
+    stockItems.add(createStockItem(3, "apples", .10));
 
     return stockItems;
   }
@@ -20,7 +18,7 @@ public class StockItemRepository {
     StockItem stockItem = new StockItem();
     stockItem.setItemId(itemId);
     stockItem.setName(itemName);
-    stockItem.setPrice(pricePerUnit);
+    stockItem.setPricePerUnit(pricePerUnit);
 
     return stockItem;
   }
