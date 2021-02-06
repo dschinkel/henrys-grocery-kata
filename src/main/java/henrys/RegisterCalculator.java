@@ -1,23 +1,26 @@
 package henrys;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static henrys.Formatter.formatDoubleToPrecisionOfTwo;
 
 public class RegisterCalculator {
     public Double tallyTotalForPurchasedStockItems(ArrayList<StockItem> purchasedItems) {
     Double total = 0.00;
+    ItemDiscount itemDiscount = new ItemDiscount();
 
-    for (StockItem stockItem : purchasedItems) {
-      total += stockItem.calculateStockItemTotalCost();
-    }
+      total = tallyTotalWithoutDiscounts(purchasedItems, total);
+      total = itemDiscount.applyDiscounts(purchasedItems, total);
 
     Double formattedTotal = formatDoubleToPrecisionOfTwo(total);
     return formattedTotal;
   }
 
-  private Double formatDoubleToPrecisionOfTwo(Double value) {
-    DecimalFormat formatDecimal = new DecimalFormat("##.00");
-    Double formattedValue = Double.parseDouble(formatDecimal.format(value));
-    return formattedValue;
+  private Double tallyTotalWithoutDiscounts(ArrayList<StockItem> purchasedItems, Double total) {
+    for (StockItem stockItem : purchasedItems) {
+      total += stockItem.calculateStockItemTotalCost();
+    }
+    return total;
   }
+
 }

@@ -76,6 +76,21 @@ public class RegisterCalculatorTest {
     assertEquals(expectedTotalPrice, total);
   }
 
+  @Test
+  void calculates_totalPrice_withDiscount_onOne_loafOfBread() {
+    StockItem soup = createStockItem(0,1);
+    purchasedItems.add(soup);
+    purchasedItems.add(soup);
+    purchasedItems.add(soup);
+    StockItem bread = createStockItem(1,1);
+    purchasedItems.add(bread);
+    purchasedItems.add(bread);
+    Double expectedTotalPrice = 3.15;
+
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    assertEquals(expectedTotalPrice, total);
+  }
+
   private StockItem createStockItem(Integer itemId, Integer quantity) {
     StockItem stockItem = new StockItem();
     stockItem.setItemId(itemId);
