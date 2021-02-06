@@ -8,8 +8,7 @@ public class RegisterCalculator {
     Double total = 0.00;
 
     for (StockItem stockItem : purchasedItems) {
-      Integer stockItemId = stockItem.getItemId();
-      total += stockItem.calculateStockItemTotalCost(stockItemId);
+      total += stockItem.calculateStockItemTotalCost();
     }
 
     Double formattedTotal = formatDoubleToPrecisionOfTwo(total);

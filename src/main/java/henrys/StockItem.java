@@ -1,10 +1,5 @@
 package henrys;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static henrys.StockItem.ItemName.*;
-
 public class StockItem {
   private int quantityPurchased = 0;
   private int itemId;
@@ -55,7 +50,7 @@ public class StockItem {
     return quantityPurchased;
   }
 
-  Double calculateStockItemTotalCost(Integer stockItemId) {
+  Double calculateStockItemTotalCost() {
     return getQuantityPurchased() * pricePerUnit;
   }
 }
