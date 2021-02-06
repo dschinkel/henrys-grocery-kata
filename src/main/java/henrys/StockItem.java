@@ -6,8 +6,6 @@ public class StockItem {
   private int quantityPurchased = 0;
   private int itemId;
 
-
-
   enum ItemName {
     SOUP(0), BREAD(1), MILK(2), APPLES(3);
     private int value = 0;
