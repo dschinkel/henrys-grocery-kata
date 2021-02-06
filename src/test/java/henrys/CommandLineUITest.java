@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +15,14 @@ public class CommandLineUITest {
   private ByteArrayOutputStream output;
   private StubInputStream input;
   CommandLineUI ui;
+  ArrayList<StockItem> stockItems;
 
   @BeforeEach
   void setUp() {
     output = new ByteArrayOutputStream();
     input = new StubInputStream();
     ui = new CommandLineUI(input, output);
+    stockItems = new StockItemRepository().findAll();
   }
 
   @Test
@@ -30,11 +33,8 @@ public class CommandLineUITest {
 
   @Test
   void display_items_toSelectFrom() {
-    Map<Integer, String> stockItems = getStockItems();
     String finalMessage = "Items in Stock: 0:soup 1:bread 2:milk 3:apples \n";
-
     ui.displayItemsForSelection(stockItems);
-
     assertEquals(finalMessage, output.toString());
   }
 
@@ -92,7 +92,7 @@ public class CommandLineUITest {
     assertEquals(finalMessage, output.toString());
   }
 
-  private Map<Integer, String> getStockItems(){
+/*  private Map<Integer, String> getStockItems(){
     Map<Integer, String> stockItems = new HashMap<Integer, String>();
     stockItems.put(0, "soup");
     stockItems.put(1, "bread");
@@ -100,6 +100,6 @@ public class CommandLineUITest {
     stockItems.put(3, "apples");
 
     return stockItems;
-  }
+  }*/
 
 }

@@ -3,6 +3,7 @@ package henrys;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -29,10 +30,10 @@ public class CommandLineUI implements RegisterUI {
     outputStream.println("READY FOR CHECKOUT!");
   }
 
-  public void displayItemsForSelection(Map<Integer, String> stockItems) {
+  public void displayItemsForSelection(ArrayList<StockItem> stockItems) {
     StringBuilder message = new StringBuilder("Items in Stock: ");
-    stockItems.forEach((itemIndex, itemName) ->
-      message.append(String.format("%d:%s ", itemIndex, itemName))
+    stockItems.forEach(stockItem ->
+      message.append(String.format("%d:%s ", stockItem.getItemId(), stockItem.getItemName()))
     );
     outputStream.println(message.toString());
   }

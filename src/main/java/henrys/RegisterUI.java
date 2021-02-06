@@ -1,10 +1,11 @@
 package henrys;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface  RegisterUI {
   void displayStartMessage();
-  void displayItemsForSelection(Map<Integer, String> stockItems);
+  void displayItemsForSelection(ArrayList<StockItem> stockItems);
   String promptForInventoryItemSelection();
   void promptForInventoryItemQuantityMessage();
   String promptForInventoryItemQuantity();

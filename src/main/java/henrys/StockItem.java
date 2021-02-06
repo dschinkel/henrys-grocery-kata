@@ -1,10 +1,20 @@
 package henrys;
 
+import java.lang.reflect.Array;
+
 import static henrys.StockItem.ItemName.*;
 
 public class StockItem {
   private int quantityPurchased = 0;
   private int itemId;
+  private String itemName;
+  private Double pricePerUnit;
+
+  public void setName(String itemName) {
+    this.itemName = itemName;
+  }
+
+
 
   enum ItemName {
     SOUP(0), BREAD(1), MILK(2), APPLES(3);
@@ -22,16 +32,25 @@ public class StockItem {
     this.quantityPurchased = quantityPurchased;
   }
 
-  public Integer getQuantityPurchased() {
-    return quantityPurchased;
-  }
 
   public void setItemId(int itemId) {
     this.itemId = itemId;
   }
 
+  public void setPrice(Double pricePerUnit) {
+    this.pricePerUnit = pricePerUnit;
+  }
+
   public int getItemId() {
-    return itemId;
+    return this.itemId;
+  }
+
+  public Object getItemName() {
+    return this.itemName;
+  }
+
+  public Integer getQuantityPurchased() {
+    return quantityPurchased;
   }
 
   Double calculateStockItemTotalCost(Double total, Integer stockItemId) {

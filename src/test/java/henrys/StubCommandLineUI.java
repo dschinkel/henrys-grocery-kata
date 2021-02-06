@@ -1,5 +1,6 @@
 package henrys;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class StubCommandLineUI implements RegisterUI {
@@ -14,7 +15,7 @@ public class StubCommandLineUI implements RegisterUI {
   }
 
   @Override
-  public void displayItemsForSelection(Map<Integer, String> stockItems) {
+  public void displayItemsForSelection(ArrayList<StockItem> stockItems) {
     showedItemsList = true;
   }
 

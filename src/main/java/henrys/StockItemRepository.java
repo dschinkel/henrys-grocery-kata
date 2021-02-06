@@ -1,17 +1,27 @@
 package henrys;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class StockItemRepository {
 
-  public Map<Integer, String> findAll(){
-    Map<Integer, String> stockItems = new HashMap<Integer, String>();
-    stockItems.put(0, "soup");
-    stockItems.put(1, "bread");
-    stockItems.put(2, "milk");
-    stockItems.put(3, "apples");
+  public ArrayList<StockItem> findAll() {
+    ArrayList<StockItem> stockItems = new ArrayList<>();
+    stockItems.add(createStockItem(0, "soup", .65));
+    stockItems.add(createStockItem(1, "bread", .80));
+    stockItems.add(createStockItem(2, "milk", 1.30));
+    stockItems.add(createStockItem(3, "apples", 1.30));
 
     return stockItems;
+  }
+
+  private StockItem createStockItem(Integer itemId, String itemName, Double pricePerUnit) {
+    StockItem stockItem = new StockItem();
+    stockItem.setItemId(itemId);
+    stockItem.setName(itemName);
+    stockItem.setPrice(pricePerUnit);
+
+    return stockItem;
   }
 }
