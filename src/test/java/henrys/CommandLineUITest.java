@@ -89,15 +89,4 @@ public class CommandLineUITest {
 
     assertEquals(finalMessage, output.toString());
   }
-
-/*  private Map<Integer, String> getStockItems(){
-    Map<Integer, String> stockItems = new HashMap<Integer, String>();
-    stockItems.put(0, "soup");
-    stockItems.put(1, "bread");
-    stockItems.put(2, "milk");
-    stockItems.put(3, "apples");
-
-    return stockItems;
-  }*/
-
 }

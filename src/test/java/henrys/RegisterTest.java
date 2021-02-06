@@ -43,7 +43,7 @@ class RegisterTest {
 
   @Test
   void calculates_totalPrice_oneOfEachItem_noDiscount() {
-    Map<Integer, Integer> itemsWithQuantity = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> itemsWithQuantity = new HashMap<>();
     itemsWithQuantity.put(0, 1);
 
     String expectedPrice = "0.65";

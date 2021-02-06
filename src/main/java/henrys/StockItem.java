@@ -1,5 +1,8 @@
 package henrys;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static henrys.StockItem.ItemName.*;
 
 public class StockItem {
@@ -52,19 +55,7 @@ public class StockItem {
     return quantityPurchased;
   }
 
-  Double calculateStockItemTotalCost(Double total, Integer stockItemId) {
-    if(stockItemId.equals(SOUP.getValue())) {
-      total += getQuantityPurchased() * pricePerUnit;
-    }
-    if(stockItemId.equals(BREAD.getValue())){
-      total += getQuantityPurchased() * pricePerUnit;
-    }
-    if(stockItemId.equals(MILK.getValue())){
-      total += getQuantityPurchased() * pricePerUnit;
-    }
-    if(stockItemId.equals(APPLES.getValue())){
-      total += getQuantityPurchased() * pricePerUnit;
-    }
-    return total;
+  Double calculateStockItemTotalCost(Integer stockItemId) {
+    return getQuantityPurchased() * pricePerUnit;
   }
 }
