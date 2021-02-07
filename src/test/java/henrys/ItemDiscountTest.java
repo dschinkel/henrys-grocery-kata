@@ -25,7 +25,7 @@ public class ItemDiscountTest {
   }
 
   @Test
-  void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_purchasedDateOutOfRangeOfDiscount() {
+  void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_noDiscount_whenPurchasedPriorToYesterday() {
     addToPurchasedItems(SOUP, 3);
     addToPurchasedItems(BREAD, 2);
     double baseTotalPrice = 3.55;
@@ -90,5 +90,16 @@ public class ItemDiscountTest {
     for (int i = 0; i < howManyToAdd; i++) {
       purchasedItems.add(item);
     }
+  }
+
+  @Test
+  void oneApple__purchasedDate_noDiscount_whenDateAfterEndOfFollowingMonth() {
+    addToPurchasedItems(APPLE, 3);
+    double baseTotalPrice = .20;
+    LocalDate afterEndOfNextMonth = LocalDate.now().plusMonths(1).plusDays(1);
+
+    double discountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, afterEndOfNextMonth);
+
+    assertEquals(baseTotalPrice, discountedPrice);
   }
 }

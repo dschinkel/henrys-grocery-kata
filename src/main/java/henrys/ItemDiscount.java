@@ -48,7 +48,9 @@ public class ItemDiscount {
 
   private boolean notPurchasedBetweenThreeDaysFromTodayUntilEndOfFollowingMonth(LocalDate purchasedDate) {
     LocalDate threeDaysFromToday = LocalDate.now().plusDays(3);
-    return purchasedDate.isBefore(threeDaysFromToday);
+    LocalDate endOfMonth = LocalDate.now().plusMonths(1);
+    boolean notPurchasedWithinValidDateRange = purchasedDate.isBefore(threeDaysFromToday) || purchasedDate.isAfter(endOfMonth);
+    return notPurchasedWithinValidDateRange;
   }
 
   private double calculateDiscountedPriceForApples(double totalWithoutDiscounts, ArrayList<StockItem> purchasedItems, StockItem apple) {
