@@ -17,7 +17,7 @@ public class StockItem {
   }
 
   enum ItemName {
-    SOUP(0), BREAD(1), MILK(2), APPLES(3);
+    SOUP(0), BREAD(1), MILK(2), APPLE(3);
     private int value = 0;
 
     ItemName(int value) {

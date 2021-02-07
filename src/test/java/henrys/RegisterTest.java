@@ -51,4 +51,6 @@ class RegisterTest {
 
     assertEquals(expectedPrice, totalPrice);
   }
+
+
 }
