@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import static henrys.Utilities.createStockItem;
+import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,6 +32,18 @@ public class CommandLineUITest {
   }
 
   @Test
+  void prompt_for_date() {
+    String promptForDate = "Please Specify a purchased date in a format of mm/dd/yyyy):\n";
+    String date = "02\06\2021";
+    input.setInputStream(date);
+
+    String userInput = ui.promptforDate();
+
+    assertEquals(date, userInput);
+    assertEquals(promptForDate, output.toString());
+  }
+
+  @Test
   void display_items_toSelectFrom() {
     String finalMessage = "Items in Stock: 0:soup 1:bread 2:milk 3:apples \n";
     ui.displayItemsForSelection(stockItemsDB);
@@ -38,8 +52,15 @@ public class CommandLineUITest {
 
   @Test
   void promptFor_inventoryItem_selection() {
-    String promptForInventoryItem = "Please Specify an Item by Number:\n";
+    String promptForInventoryItem = "Please Specify an Item by Number:\n" +
+      "You selected: soup \n";
     String selectedItem = "0";
+    ArrayList<StockItem> stockItems = new ArrayList<>();
+    stockItems.add(createStockItem(0, "soup", .65));
+    stockItems.add(createStockItem(1, "bread", .80));
+    stockItems.add(createStockItem(2, "milk", 1.30));
+    stockItems.add(createStockItem(3, "apples", .10));
+    ui.setStockItems(stockItems);
     input.setInputStream(selectedItem);
 
     String userInput = ui.promptForInventoryItemSelection();
@@ -82,8 +103,8 @@ public class CommandLineUITest {
 
   @Test
   void display_totalPrice() {
-    String total = "1.00";
-    String finalMessage = String.format("Total Price is: %s\n", total);
+    Double total = formatDoubleToPrecisionOfTwo(.09);
+    String finalMessage = String.format("Total Price is %s\n", total);
 
     ui.displayTotalPrice(total);
 

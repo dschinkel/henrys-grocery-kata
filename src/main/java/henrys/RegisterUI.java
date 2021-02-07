@@ -1,7 +1,6 @@
 package henrys;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public interface  RegisterUI {
   void displayStartMessage();
@@ -9,10 +8,8 @@ public interface  RegisterUI {
   String promptForInventoryItemSelection();
   void promptForInventoryItemQuantityMessage();
   String promptForInventoryItemQuantity();
-  Map<Integer, Integer> inputAllItems();
+  Object[] inputAllItems();
   void promptForDoneMessage();
-
   String promptforDone();
-
-  void displayTotalPrice(String price);
+  void displayTotalPrice(Double price);
 }

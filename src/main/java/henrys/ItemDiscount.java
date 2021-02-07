@@ -3,7 +3,7 @@ package henrys;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static henrys.Formatter.formatDoubleToPrecisionOfTwo;
+import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 import static henrys.StockItem.ItemName.*;
 
 public class ItemDiscount {
@@ -33,20 +33,16 @@ public class ItemDiscount {
 
     Double discountedPrice = calculateDiscountedPriceForApples(itemsTotalPrice, purchasedItems, apple);
 
-    return formatDoubleToPrecisionOfTwo(discountedPrice);
+    return discountedPrice;
   }
 
   private boolean noApplesPurchased(ArrayList<StockItem> purchasedItems) {
-    long purchasedAppleQty = countOfApplesPurchased(purchasedItems, APPLE);
+    long purchasedAppleQty = countOfStockItemsByType(purchasedItems, APPLE);
     return purchasedAppleQty == 0;
   }
 
-  private long countOfApplesPurchased(ArrayList<StockItem> purchasedItems, StockItem.ItemName apple) {
-    return countOfStockItemsByType(purchasedItems, apple);
-  }
-
   private boolean lessThanTwoSoupsPurchased(ArrayList<StockItem> purchasedItems) {
-    long purchasedSoupQty = countOfApplesPurchased(purchasedItems, SOUP);
+    long purchasedSoupQty = countOfStockItemsByType(purchasedItems, SOUP);
     return purchasedSoupQty < 2;
   }
 
@@ -56,9 +52,10 @@ public class ItemDiscount {
   }
 
   private Double calculateDiscountedPriceForApples(Double totalWithoutDiscounts, ArrayList<StockItem> purchasedItems, StockItem apple) {
-    long purchasedAppleQty = countOfApplesPurchased(purchasedItems, APPLE);
+    long purchasedAppleQty = countOfStockItemsByType(purchasedItems, APPLE);
     double applesTotalBasePrice = apple.getItemPricePerUnit() * purchasedAppleQty;
     Double totalAppleDiscountAmount = (applesTotalBasePrice * .10);
+
     Double discountedPrice = totalWithoutDiscounts - totalAppleDiscountAmount;
 
     return formatDoubleToPrecisionOfTwo(discountedPrice);

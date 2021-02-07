@@ -26,8 +26,8 @@ public class ItemDiscountTest {
 
   @Test
   void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_purchasedDateOutOfRangeOfDiscount() {
-    addItemsToPurchasedItems(SOUP, 3);
-    addItemsToPurchasedItems(BREAD, 2);
+    addToPurchasedItems(SOUP, 3);
+    addToPurchasedItems(BREAD, 2);
     Double baseTotalPrice = 3.55;
     LocalDate dateTwoDaysAgo = LocalDate.now().minusDays(2);
 
@@ -38,8 +38,8 @@ public class ItemDiscountTest {
 
   @Test
   void threeSoup_twoLoavesBread_purchasedDateToday() {
-    addItemsToPurchasedItems(SOUP, 3);
-    addItemsToPurchasedItems(BREAD, 2);
+    addToPurchasedItems(SOUP, 3);
+    addToPurchasedItems(BREAD, 2);
     Double baseTotalPrice = 3.55;
     LocalDate dateTwoDaysAgo = LocalDate.now();
     Double expectdDiscountedPrice = 3.15;
@@ -51,8 +51,8 @@ public class ItemDiscountTest {
 
   @Test
   void sixApples_and_oneBottleOfMilk_purchasedThreeDaysFromToday() {
-    addItemsToPurchasedItems(APPLE, 6);
-    addItemsToPurchasedItems(MILK, 1);
+    addToPurchasedItems(APPLE, 6);
+    addToPurchasedItems(MILK, 1);
     Double baseTotalPrice = 1.84;
     LocalDate dateToday = LocalDate.now().plusDays(5);
 
@@ -63,7 +63,7 @@ public class ItemDiscountTest {
 
   @Test
   void apples_purchased_today() {
-    addItemsToPurchasedItems(APPLE, 3);
+    addToPurchasedItems(APPLE, 3);
     LocalDate dateToday = LocalDate.now();
     Double baseTotalPrice = .30;
     Double expectedDiscountedPrice = .30;
@@ -75,7 +75,7 @@ public class ItemDiscountTest {
 
   @Test
   void apples_purchased_threeDaysFromToday() {
-    addItemsToPurchasedItems(APPLE, 3);
+    addToPurchasedItems(APPLE, 3);
     LocalDate dateThreeDaysFromToday = LocalDate.now().plusDays(3);
     Double baseTotalPrice = .30;
     Double expectedDiscountedPrice = .27;
@@ -85,9 +85,8 @@ public class ItemDiscountTest {
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
 
-  private void addItemsToPurchasedItems(StockItem.ItemName itemName, Integer howManyToAdd) {
+  private void addToPurchasedItems(StockItem.ItemName itemName, Integer howManyToAdd) {
     StockItem item = stockItemsDB.get(itemName.getValue());
-    item.setQuantityPurchased(1);
     for (int i = 0; i < howManyToAdd; i++) {
       purchasedItems.add(item);
     }

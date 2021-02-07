@@ -1,5 +1,7 @@
 package henrys;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -9,7 +11,7 @@ public class Register {
   private RegisterCalculator registerCalculator;
   ArrayList<StockItem> stockItemsDB;
 
-  Register(RegisterUI ui, StockItemRepository stockItemRepository, RegisterCalculator registerCalculator){
+  Register(RegisterUI ui, StockItemRepository stockItemRepository, RegisterCalculator registerCalculator) {
     this.ui = ui;
     this.stockItemRepository = stockItemRepository;
     this.registerCalculator = registerCalculator;
@@ -19,27 +21,30 @@ public class Register {
   public void start() {
     ui.displayStartMessage();
     ui.displayItemsForSelection(this.stockItemRepository.findAll());
-    Map<Integer, Integer> itemsWithQuantity = ui.inputAllItems();
-    displayTotalPrice(itemsWithQuantity);
+    Object[] inputsFromUI = ui.inputAllItems();
+    displayTotalPrice(inputsFromUI);
   }
 
-  private void displayTotalPrice(Map<Integer, Integer> itemsWithQuantity) {
-    String totalPrice = calculateTotalPrice(itemsWithQuantity);
+  private void displayTotalPrice(Object[] inputsFromUI) {
+    if (inputsFromUI == null) return;
+    Map<Integer, Integer> itemsWithQuantity = (Map<Integer, Integer>) inputsFromUI[0];
+    LocalDate purchasedDate = convertPurchasedDateToLocalDate(inputsFromUI[1]);
+    Double totalPrice = calculateTotalPrice(itemsWithQuantity, purchasedDate);
+
     ui.displayTotalPrice(totalPrice);
   }
 
-  public String calculateTotalPrice(Map<Integer, Integer> itemsWithQuantity) {
+  public Double calculateTotalPrice(Map<Integer, Integer> itemsWithQuantity, LocalDate purchasedDate) {
     Double totalPrice = 0.00;
-    if(noItems(itemsWithQuantity)) return totalPrice.toString();
+    if (noItems(itemsWithQuantity)) return totalPrice;
     ArrayList<StockItem> purchasedItems = convertItemsToStockItems(itemsWithQuantity);
 
-    totalPrice = getTotalPrice(purchasedItems);
-
-    return totalPrice.toString();
+    totalPrice = getTotalPrice(purchasedItems, purchasedDate);
+    return totalPrice;
   }
 
-  private Double getTotalPrice(ArrayList<StockItem> purchasedItems) {
-    return registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems,  null);
+  private Double getTotalPrice(ArrayList<StockItem> purchasedItems, LocalDate purchasedDate) {
+    return registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, purchasedDate);
   }
 
   private boolean noItems(Map<Integer, Integer> itemsWithQuantity) {
@@ -49,13 +54,22 @@ public class Register {
   private ArrayList<StockItem> convertItemsToStockItems(Map<Integer, Integer> itemsWithQuantity) {
     ArrayList<StockItem> purchasedItems = new ArrayList<>();
 
-    for (Map.Entry<Integer, Integer> item : itemsWithQuantity.entrySet()) {
-      StockItem stockItem = new StockItem();
-      stockItem.setQuantityPurchased(item.getValue());
-      stockItem.setPricePerUnit(stockItemsDB.get(item.getKey()).getItemPricePerUnit());
-      purchasedItems.add(stockItem);
-    }
+    itemsWithQuantity.forEach((itemId, quantityPurchased) -> {
+      for (int i = 0; i < quantityPurchased; i++) {
+        StockItem stockItem = new StockItem();
+        stockItem.setItemId(itemId);
+        stockItem.setPricePerUnit(stockItemsDB.get(itemId).getItemPricePerUnit());
+
+        purchasedItems.add(stockItem);
+      }
+    });
 
     return purchasedItems;
+  }
+
+  private LocalDate convertPurchasedDateToLocalDate(Object o) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/d/yyyy");
+    LocalDate date = LocalDate.parse((String) o, formatter);
+    return date;
   }
 };

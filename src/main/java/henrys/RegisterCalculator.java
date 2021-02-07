@@ -3,11 +3,11 @@ package henrys;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static henrys.Formatter.formatDoubleToPrecisionOfTwo;
+import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class RegisterCalculator {
   public Double tallyTotalForPurchasedStockItems(ArrayList<StockItem> purchasedItems, LocalDate purchasedDate) {
-    Double total = 0.00;
+    Double total;
     ItemDiscount itemDiscount = new ItemDiscount();
     total = tallyTotalWithoutDiscounts(purchasedItems);
     total = itemDiscount.applyDiscounts(purchasedItems, total, purchasedDate);

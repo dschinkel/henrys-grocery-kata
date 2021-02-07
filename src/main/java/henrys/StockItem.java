@@ -1,6 +1,6 @@
 package henrys;
 
-import static henrys.Formatter.formatDoubleToPrecisionOfTwo;
+import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class StockItem {
   private int quantityPurchased = 0;
@@ -28,9 +28,11 @@ public class StockItem {
     }
   }
 
+/*
   public void setQuantityPurchased(int quantityPurchased) {
     this.quantityPurchased = quantityPurchased;
   }
+*/
 
   public void setItemId(int itemId) {
     this.itemId = itemId;
@@ -53,6 +55,6 @@ public class StockItem {
   }
 
   Double calculateStockItemTotalCost() {
-    return formatDoubleToPrecisionOfTwo(getQuantityPurchased() * pricePerUnit);
+    return formatDoubleToPrecisionOfTwo(pricePerUnit);
   }
 }

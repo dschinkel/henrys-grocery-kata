@@ -2,6 +2,8 @@ package henrys;
 
 import java.util.ArrayList;
 
+import static henrys.Utilities.createStockItem;
+
 public class StockItemRepository {
 
   public ArrayList<StockItem> findAll() {
@@ -12,14 +14,5 @@ public class StockItemRepository {
     stockItems.add(createStockItem(3, "apples", .10));
 
     return stockItems;
-  }
-
-  private StockItem createStockItem(Integer itemId, String itemName, Double pricePerUnit) {
-    StockItem stockItem = new StockItem();
-    stockItem.setItemId(itemId);
-    stockItem.setName(itemName);
-    stockItem.setPricePerUnit(pricePerUnit);
-
-    return stockItem;
   }
 }
