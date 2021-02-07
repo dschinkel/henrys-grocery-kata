@@ -115,6 +115,24 @@ public class RegisterCalculatorTest {
     assertEquals(baseTotalPrice, total);
   }
 
+  @Test
+  void sixApples_and_oneBottleOfMilk_purchasedFiveDaysFromToday() {
+    StockItem apple = createStockItem(APPLE.getValue(),1);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    StockItem milk = createStockItem(MILK.getValue(),1);
+    purchasedItems.add(milk);
+    Double baseTotalPrice = 1.84;
+    LocalDate dateToday = LocalDate.now().plusDays(5);
+
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
+
+    assertEquals(baseTotalPrice, total);
+  }
 
   private StockItem createStockItem(Integer itemId, Integer quantity) {
     StockItem stockItem = new StockItem();
