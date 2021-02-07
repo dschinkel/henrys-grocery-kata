@@ -23,8 +23,6 @@ public class ItemDiscountTest {
     purchasedItems = new ArrayList<>();
   }
 
-
-
   @Test
   void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_purchasedDateOutOfRangeOfDiscount() {
     StockItem soup = stockItemsDB.get(StockItem.ItemName.SOUP.getValue());
@@ -45,7 +43,7 @@ public class ItemDiscountTest {
   }
 
   @Test
-  void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_purchasedDateToday() {
+  void threeSoup_twoLoavesBread_purchasedDateToday() {
     StockItem soup = stockItemsDB.get(StockItem.ItemName.SOUP.getValue());
     soup.setQuantityPurchased(1);
     purchasedItems.add(soup);
@@ -79,8 +77,5 @@ public class ItemDiscountTest {
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
-
-
-
 
 }
