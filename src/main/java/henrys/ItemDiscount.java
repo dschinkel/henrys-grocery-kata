@@ -3,7 +3,6 @@ package henrys;
 import java.util.ArrayList;
 
 import static henrys.Formatter.formatDoubleToPrecisionOfTwo;
-import static henrys.Formatter.subtractDoubles;
 import static henrys.StockItem.ItemName.APPLE;
 import static henrys.StockItem.ItemName.BREAD;
 
@@ -13,7 +12,7 @@ public class ItemDiscount {
   public Double applyDiscounts(ArrayList<StockItem> purchasedItems, Double baseTotal) {
     Double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal);
     totalWithDiscounts = applyAppleTenPercentDiscount(purchasedItems, totalWithDiscounts);
-    return formatDoubleToPrecisionOfTwo(totalWithDiscounts);
+    return totalWithDiscounts;
   }
 
   public Double twoSoupGetOneLoafBreadHalfOff(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice) {
@@ -27,7 +26,7 @@ public class ItemDiscount {
     if (purchasedSoupQty < 2) { return itemsTotalPrice; }
 
     Double discountedPrice = itemsTotalPrice + -(totalBreadDiscountAmt);
-    return formatDoubleToPrecisionOfTwo(discountedPrice);
+    return discountedPrice;
   }
 
   public Double applyAppleTenPercentDiscount(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice) {
@@ -44,7 +43,7 @@ public class ItemDiscount {
   private Double calculateDiscountedPriceForApples(Double totalWithoutDiscounts, long appleQuantity, StockItem apple) {
     Double applesTotalBasePrice = apple.getItemPricePerUnit() * appleQuantity;
     Double totalAppleDiscountAmount = (applesTotalBasePrice * .10);
-    Double discountedPrice = subtractDoubles(totalWithoutDiscounts, totalAppleDiscountAmount);
+    Double discountedPrice = totalWithoutDiscounts - totalAppleDiscountAmount;
     return formatDoubleToPrecisionOfTwo(discountedPrice);
   }
 
