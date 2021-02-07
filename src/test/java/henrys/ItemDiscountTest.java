@@ -18,9 +18,10 @@ public class ItemDiscountTest {
 
   @BeforeEach
   void setUp() {
-    stockItemsDB = new StockItemRepository().findAll();
-    registerCalculator = new RegisterCalculator();
-    itemDiscount = new ItemDiscount();
+    StockItemRepository stockItemRepository = new StockItemRepository();
+    stockItemsDB = stockItemRepository.findAll();
+    itemDiscount = new ItemDiscount(stockItemRepository);
+    registerCalculator = new RegisterCalculator(itemDiscount);
     purchasedItems = new ArrayList<>();
   }
 

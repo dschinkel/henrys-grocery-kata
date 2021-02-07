@@ -7,7 +7,11 @@ import static henrys.Constants.ItemName.*;
 import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class ItemDiscount {
-  ArrayList<StockItem> stockItemsDB = new StockItemRepository().findAll();
+  private final ArrayList<StockItem> stockItemsDB;
+
+  public ItemDiscount(StockItemRepository stockItemRepository) {
+    this.stockItemsDB = stockItemRepository.findAll();
+  }
 
   public double applyDiscounts(ArrayList<StockItem> purchasedItems, double baseTotal, LocalDate purchasedDate) {
     double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal, purchasedDate);

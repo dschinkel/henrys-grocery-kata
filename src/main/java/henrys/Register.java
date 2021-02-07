@@ -15,7 +15,7 @@ public class Register {
     this.ui = ui;
     this.stockItemRepository = stockItemRepository;
     this.registerCalculator = registerCalculator;
-    stockItemsDB = new StockItemRepository().findAll();
+    stockItemsDB = stockItemRepository.findAll();
   }
 
   public void start() {

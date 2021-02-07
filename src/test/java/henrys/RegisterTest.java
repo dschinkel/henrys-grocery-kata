@@ -18,7 +18,8 @@ class RegisterTest {
   @BeforeEach
   void setUp() {
     repository = new StockItemRepository();
-    registerCalculator = new RegisterCalculator();
+    ItemDiscount itemDiscount = new ItemDiscount(repository);
+    registerCalculator = new RegisterCalculator(itemDiscount);
     register = new Register(ui, repository, registerCalculator);
   }
 

@@ -6,11 +6,17 @@ import java.util.ArrayList;
 import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class RegisterCalculator {
+
+  private final ItemDiscount itemDiscount;
+
+  public RegisterCalculator(ItemDiscount itemDiscount) {
+    this.itemDiscount = itemDiscount;
+  }
+
   public double tallyTotalForPurchasedStockItems(ArrayList<StockItem> purchasedItems, LocalDate purchasedDate) {
     double total;
-    ItemDiscount itemDiscount = new ItemDiscount();
     total = tallyTotalWithoutDiscounts(purchasedItems);
-    total = itemDiscount.applyDiscounts(purchasedItems, total, purchasedDate);
+    total = this.itemDiscount.applyDiscounts(purchasedItems, total, purchasedDate);
 
     return formatDoubleToPrecisionOfTwo(total);
   }

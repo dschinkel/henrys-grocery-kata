@@ -16,7 +16,9 @@ public class RegisterCalculatorTest {
 
   @BeforeEach
   void setUp() {
-    registerCalculator = new RegisterCalculator();
+    StockItemRepository repository = new StockItemRepository();
+    ItemDiscount itemDiscount = new ItemDiscount(repository);
+    registerCalculator = new RegisterCalculator(itemDiscount);
     purchasedItems = new ArrayList<>();
     stockItemsDB = new StockItemRepository().findAll();
   }
