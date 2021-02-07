@@ -29,12 +29,12 @@ public class Register {
     if (inputsFromUI == null) return;
     Map<Integer, Integer> itemsWithQuantity = (Map<Integer, Integer>) inputsFromUI[0];
     LocalDate purchasedDate = convertPurchasedDateToLocalDate(inputsFromUI[1]);
-    Double totalPrice = calculateTotalPrice(itemsWithQuantity, purchasedDate);
+    double totalPrice = calculateTotalPrice(itemsWithQuantity, purchasedDate);
 
     ui.displayTotalPrice(totalPrice);
   }
 
-  public Double calculateTotalPrice(Map<Integer, Integer> itemsWithQuantity, LocalDate purchasedDate) {
+  public double calculateTotalPrice(Map<Integer, Integer> itemsWithQuantity, LocalDate purchasedDate) {
     Double totalPrice = 0.00;
     if (noItems(itemsWithQuantity)) return totalPrice;
     ArrayList<StockItem> purchasedItems = convertItemsToStockItems(itemsWithQuantity);
@@ -43,7 +43,7 @@ public class Register {
     return totalPrice;
   }
 
-  private Double getTotalPrice(ArrayList<StockItem> purchasedItems, LocalDate purchasedDate) {
+  private double getTotalPrice(ArrayList<StockItem> purchasedItems, LocalDate purchasedDate) {
     return registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, purchasedDate);
   }
 
@@ -53,18 +53,24 @@ public class Register {
 
   private ArrayList<StockItem> convertItemsToStockItems(Map<Integer, Integer> itemsWithQuantity) {
     ArrayList<StockItem> purchasedItems = new ArrayList<>();
-
-    itemsWithQuantity.forEach((itemId, quantityPurchased) -> {
-      for (int i = 0; i < quantityPurchased; i++) {
-        StockItem stockItem = new StockItem();
-        stockItem.setItemId(itemId);
-        stockItem.setPricePerUnit(stockItemsDB.get(itemId).getItemPricePerUnit());
-
-        purchasedItems.add(stockItem);
-      }
-    });
-
+    convertToStockItems(itemsWithQuantity, purchasedItems);
     return purchasedItems;
+  }
+
+  private void convertToStockItems(Map<Integer, Integer> itemsWithQuantity, ArrayList<StockItem> purchasedItems) {
+    itemsWithQuantity.forEach((itemId, quantityPurchased) -> {
+      createStockItemBasedOnItemQuantity(purchasedItems, itemId, quantityPurchased);
+    });
+  }
+
+  private void createStockItemBasedOnItemQuantity(ArrayList<StockItem> purchasedItems, Integer itemId, Integer quantityPurchased) {
+    for (int i = 0; i < quantityPurchased; i++) {
+      StockItem stockItem = new StockItem();
+      stockItem.setItemId(itemId);
+      stockItem.setPricePerUnit(stockItemsDB.get(itemId).getItemPricePerUnit());
+
+      purchasedItems.add(stockItem);
+    }
   }
 
   private LocalDate convertPurchasedDateToLocalDate(Object o) {

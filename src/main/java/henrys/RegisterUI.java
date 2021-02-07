@@ -11,5 +11,5 @@ public interface  RegisterUI {
   Object[] inputAllItems();
   void promptForDoneMessage();
   String promptforDone();
-  void displayTotalPrice(Double price);
+  void displayTotalPrice(double price);
 }

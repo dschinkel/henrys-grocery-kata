@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
-
 public class CommandLineUI implements RegisterUI {
   private final PrintStream outputStream;
   private final InputStream inputStream;
@@ -55,7 +53,7 @@ public class CommandLineUI implements RegisterUI {
     if(done.equals("d")) {
       enteredItems.put(Integer.parseInt(itemId), Integer.parseInt(itemQty));
       String date = promptforDate();
-      inputs = new Object[] {enteredItems, date};
+      inputs = combinePurchasedItemsAndPurchasedDate(date);
       return inputs;
     }
 
@@ -71,7 +69,7 @@ public class CommandLineUI implements RegisterUI {
   }
 
   @Override
-  public void displayTotalPrice(Double price) {
+  public void displayTotalPrice(double price) {
     String message = String.format("Total Price is %s", price);
     outputStream.println(message);
   }
@@ -85,7 +83,7 @@ public class CommandLineUI implements RegisterUI {
   public String promptForInventoryItemSelection() {
     promptForInventoryItem();
     String input = getUserInput();
-    outputStream.printf("You selected: %s \n", stockItems.get(Integer.parseInt(input)).getItemName());
+    displaySelectedItem(input);
     return input;
   }
 
@@ -117,4 +115,13 @@ public class CommandLineUI implements RegisterUI {
     outputStream.println("Please Specify a purchased date in a format of mm/dd/yyyy):");
     return getUserInput();
   }
+
+  private Object[] combinePurchasedItemsAndPurchasedDate(String date) {
+    return new Object[]{enteredItems, date};
+  }
+
+  private void displaySelectedItem(String input) {
+    outputStream.printf("You selected: %s \n", stockItems.get(Integer.parseInt(input)).getItemName());
+  }
+
 }

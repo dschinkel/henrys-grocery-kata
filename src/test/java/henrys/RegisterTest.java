@@ -28,11 +28,9 @@ class RegisterTest {
     itemsWithQuantity.put(0, 1);
     LocalDate dateToday = LocalDate.now();
 
-    Double expectedPrice = 0.65;
-    Double totalPrice = register.calculateTotalPrice(itemsWithQuantity, dateToday);
+    double expectedPrice = 0.65;
+    double totalPrice = register.calculateTotalPrice(itemsWithQuantity, dateToday);
 
     assertEquals(expectedPrice, totalPrice);
   }
-
-
 }

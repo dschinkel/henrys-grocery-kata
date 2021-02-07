@@ -3,35 +3,35 @@ package henrys;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static henrys.Constants.ItemName.*;
 import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
-import static henrys.StockItem.ItemName.*;
 
 public class ItemDiscount {
   ArrayList<StockItem> stockItemsDB = new StockItemRepository().findAll();
 
-  public Double applyDiscounts(ArrayList<StockItem> purchasedItems, Double baseTotal, LocalDate purchasedDate) {
-    Double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal, purchasedDate);
+  public double applyDiscounts(ArrayList<StockItem> purchasedItems, double baseTotal, LocalDate purchasedDate) {
+    double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal, purchasedDate);
     totalWithDiscounts = applyAppleTenPercentDiscount(purchasedItems, totalWithDiscounts, purchasedDate);
     return totalWithDiscounts;
   }
 
-  public Double twoSoupGetOneLoafBreadHalfOff(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice, LocalDate purchasedDate) {
+  public double twoSoupGetOneLoafBreadHalfOff(ArrayList<StockItem> purchasedItems, double itemsTotalPrice, LocalDate purchasedDate) {
     if (lessThanTwoSoupsPurchased(purchasedItems) ) { return itemsTotalPrice; }
     if (notPurchasedBetweenYesterdayForSevenDays(purchasedDate)) return itemsTotalPrice;
 
     StockItem bread = stockItemsDB.get(BREAD.getValue());
     double totalBreadDiscountAmt = bread.getItemPricePerUnit() / 2;
-    Double discountedPrice = itemsTotalPrice + -(totalBreadDiscountAmt);
+    double discountedPrice = itemsTotalPrice + -(totalBreadDiscountAmt);
 
     return discountedPrice;
   }
 
-  public Double applyAppleTenPercentDiscount(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice, LocalDate purchasedDate) {
+  public double applyAppleTenPercentDiscount(ArrayList<StockItem> purchasedItems, double itemsTotalPrice, LocalDate purchasedDate) {
     StockItem apple = stockItemsDB.get(APPLE.getValue());
     if (noApplesPurchased(purchasedItems)) { return itemsTotalPrice; }
     if (notPurchasedBetweenThreeDaysFromTodayUntilEndOfFollowingMonth(purchasedDate)) return itemsTotalPrice;
 
-    Double discountedPrice = calculateDiscountedPriceForApples(itemsTotalPrice, purchasedItems, apple);
+    double discountedPrice = calculateDiscountedPriceForApples(itemsTotalPrice, purchasedItems, apple);
 
     return discountedPrice;
   }
@@ -51,17 +51,17 @@ public class ItemDiscount {
     return purchasedDate.isBefore(threeDaysFromToday);
   }
 
-  private Double calculateDiscountedPriceForApples(Double totalWithoutDiscounts, ArrayList<StockItem> purchasedItems, StockItem apple) {
+  private double calculateDiscountedPriceForApples(double totalWithoutDiscounts, ArrayList<StockItem> purchasedItems, StockItem apple) {
     long purchasedAppleQty = countOfStockItemsByType(purchasedItems, APPLE);
     double applesTotalBasePrice = apple.getItemPricePerUnit() * purchasedAppleQty;
-    Double totalAppleDiscountAmount = (applesTotalBasePrice * .10);
+    double totalAppleDiscountAmount = (applesTotalBasePrice * .10);
 
-    Double discountedPrice = totalWithoutDiscounts - totalAppleDiscountAmount;
+    double discountedPrice = totalWithoutDiscounts - totalAppleDiscountAmount;
 
     return formatDoubleToPrecisionOfTwo(discountedPrice);
   }
 
-  private long countOfStockItemsByType(ArrayList<StockItem> purchasedItems, StockItem.ItemName itemName) {
+  private long countOfStockItemsByType(ArrayList<StockItem> purchasedItems, Constants.ItemName itemName) {
     return purchasedItems.stream().filter(item -> item.getItemId() == itemName.getValue()).count();
   }
 

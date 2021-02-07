@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import static henrys.Utilities.createStockItem;
 import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,6 +15,7 @@ public class CommandLineUITest {
   private StubInputStream input;
   CommandLineUI ui;
   ArrayList<StockItem> stockItemsDB;
+  ArrayList<StockItem> purchasedItems = new ArrayList<>();
 
   @BeforeEach
   void setUp() {
@@ -55,12 +55,9 @@ public class CommandLineUITest {
     String promptForInventoryItem = "Please Specify an Item by Number:\n" +
       "You selected: soup \n";
     String selectedItem = "0";
-    ArrayList<StockItem> stockItems = new ArrayList<>();
-    stockItems.add(createStockItem(0, "soup", .65));
-    stockItems.add(createStockItem(1, "bread", .80));
-    stockItems.add(createStockItem(2, "milk", 1.30));
-    stockItems.add(createStockItem(3, "apples", .10));
-    ui.setStockItems(stockItems);
+    ArrayList<StockItem> stockItemsDB = new StockItemRepository().findAll();
+
+    ui.setStockItems(stockItemsDB);
     input.setInputStream(selectedItem);
 
     String userInput = ui.promptForInventoryItemSelection();
@@ -103,7 +100,7 @@ public class CommandLineUITest {
 
   @Test
   void display_totalPrice() {
-    Double total = formatDoubleToPrecisionOfTwo(.09);
+    double total = formatDoubleToPrecisionOfTwo(.09);
     String finalMessage = String.format("Total Price is %s\n", total);
 
     ui.displayTotalPrice(total);

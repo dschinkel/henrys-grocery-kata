@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class DummyCommandLineUI implements RegisterUI {
 
-  public void displayStartMessage() { }
+  public void displayStartMessage() {}
 
   @Override
   public void displayItemsForSelection(ArrayList<StockItem> stockItems) {}
@@ -28,8 +28,7 @@ public class DummyCommandLineUI implements RegisterUI {
   }
 
   @Override
-  public void promptForDoneMessage() {
-  }
+  public void promptForDoneMessage() {}
 
   @Override
   public String promptforDone() {
@@ -37,6 +36,5 @@ public class DummyCommandLineUI implements RegisterUI {
   }
 
   @Override
-  public void displayTotalPrice(Double price) {
-  }
+  public void displayTotalPrice(double price) {}
 }
