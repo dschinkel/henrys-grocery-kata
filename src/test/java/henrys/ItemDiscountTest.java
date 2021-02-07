@@ -3,6 +3,7 @@ package henrys;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,8 +23,10 @@ public class ItemDiscountTest {
     purchasedItems = new ArrayList<>();
   }
 
+
+
   @Test
-  void twoSoup_getOne_loafOfBread_halfOff() {
+  void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_purchasedDateOutOfRangeOfDiscount() {
     StockItem soup = stockItemsDB.get(StockItem.ItemName.SOUP.getValue());
     soup.setQuantityPurchased(1);
     purchasedItems.add(soup);
@@ -34,9 +37,29 @@ public class ItemDiscountTest {
     purchasedItems.add(bread);
     purchasedItems.add(bread);
     Double baseTotalPrice = 3.55;
+    LocalDate dateTwoDaysAgo = LocalDate.now().minusDays(2);
 
-    Double discountedPrice = itemDiscount.twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotalPrice);
+    Double discountedPrice = itemDiscount.twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotalPrice, dateTwoDaysAgo);
+
+    assertEquals(baseTotalPrice, discountedPrice);
+  }
+
+  @Test
+  void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_purchasedDateToday() {
+    StockItem soup = stockItemsDB.get(StockItem.ItemName.SOUP.getValue());
+    soup.setQuantityPurchased(1);
+    purchasedItems.add(soup);
+    purchasedItems.add(soup);
+    purchasedItems.add(soup);
+    StockItem bread = stockItemsDB.get(StockItem.ItemName.BREAD.getValue());
+    bread.setQuantityPurchased(1);
+    purchasedItems.add(bread);
+    purchasedItems.add(bread);
+    Double baseTotalPrice = 3.55;
+    LocalDate dateTwoDaysAgo = LocalDate.now();
     Double expectdDiscountedPrice = 3.15;
+
+    Double discountedPrice = itemDiscount.twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotalPrice, dateTwoDaysAgo);
 
     assertEquals(expectdDiscountedPrice, discountedPrice);
   }
@@ -56,4 +79,8 @@ public class ItemDiscountTest {
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
+
+
+
+
 }

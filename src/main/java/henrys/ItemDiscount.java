@@ -1,5 +1,6 @@
 package henrys;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static henrys.Formatter.formatDoubleToPrecisionOfTwo;
@@ -10,30 +11,39 @@ public class ItemDiscount {
   ArrayList<StockItem> stockItemsDB = new StockItemRepository().findAll();
 
   public Double applyDiscounts(ArrayList<StockItem> purchasedItems, Double baseTotal) {
-    Double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal);
+    Double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal, null);
     totalWithDiscounts = applyAppleTenPercentDiscount(purchasedItems, totalWithDiscounts);
     return totalWithDiscounts;
   }
 
-  public Double twoSoupGetOneLoafBreadHalfOff(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice) {
+  public Double twoSoupGetOneLoafBreadHalfOff(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice, LocalDate purchasedDate) {
     long purchasedSoupQty = countOfStockItemsByType(purchasedItems, BREAD);
+    if (purchasedSoupQty < 2) {
+      return itemsTotalPrice;
+    }
 
-    if (purchasedSoupQty == 0) { return itemsTotalPrice; }
+    if (notPurchasedBetweenYesterdayForSevenDays(purchasedDate)) return itemsTotalPrice;
 
     StockItem bread = stockItemsDB.get(BREAD.getValue());
     Double totalBreadDiscountAmt = bread.getItemPricePerUnit() / 2;
 
-    if (purchasedSoupQty < 2) { return itemsTotalPrice; }
-
     Double discountedPrice = itemsTotalPrice + -(totalBreadDiscountAmt);
     return discountedPrice;
+  }
+
+  private boolean notPurchasedBetweenYesterdayForSevenDays(LocalDate purchasedDate) {
+    LocalDate yesterday = LocalDate.now().minusDays(1);
+    if (purchasedDate.isBefore(yesterday)) return true;
+    return false;
   }
 
   public Double applyAppleTenPercentDiscount(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice) {
     long purchasedAppleQty = countOfStockItemsByType(purchasedItems, APPLE);
     StockItem apple = stockItemsDB.get(APPLE.getValue());
 
-    if (purchasedAppleQty == 0) { return itemsTotalPrice; }
+    if (purchasedAppleQty == 0) {
+      return itemsTotalPrice;
+    }
 
     Double discountedPrice = calculateDiscountedPriceForApples(itemsTotalPrice, purchasedAppleQty, apple);
 
