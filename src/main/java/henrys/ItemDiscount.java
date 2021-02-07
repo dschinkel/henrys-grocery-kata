@@ -10,9 +10,9 @@ import static henrys.StockItem.ItemName.BREAD;
 public class ItemDiscount {
   ArrayList<StockItem> stockItemsDB = new StockItemRepository().findAll();
 
-  public Double applyDiscounts(ArrayList<StockItem> purchasedItems, Double baseTotal) {
-    Double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal, null);
-    totalWithDiscounts = applyAppleTenPercentDiscount(purchasedItems, totalWithDiscounts);
+  public Double applyDiscounts(ArrayList<StockItem> purchasedItems, Double baseTotal, LocalDate purchasedDate) {
+    Double totalWithDiscounts = twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotal, purchasedDate);
+    totalWithDiscounts = applyAppleTenPercentDiscount(purchasedItems, totalWithDiscounts, purchasedDate);
     return totalWithDiscounts;
   }
 
@@ -31,19 +31,16 @@ public class ItemDiscount {
     return discountedPrice;
   }
 
-  private boolean notPurchasedBetweenYesterdayForSevenDays(LocalDate purchasedDate) {
-    LocalDate yesterday = LocalDate.now().minusDays(1);
-    if (purchasedDate.isBefore(yesterday)) return true;
-    return false;
-  }
-
-  public Double applyAppleTenPercentDiscount(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice) {
+  public Double applyAppleTenPercentDiscount(ArrayList<StockItem> purchasedItems, Double itemsTotalPrice, LocalDate purchasedDate) {
     long purchasedAppleQty = countOfStockItemsByType(purchasedItems, APPLE);
     StockItem apple = stockItemsDB.get(APPLE.getValue());
 
     if (purchasedAppleQty == 0) {
       return itemsTotalPrice;
     }
+
+    LocalDate threeDaysFromToday = LocalDate.now().plusDays(3);
+    if (purchasedDate.isBefore(threeDaysFromToday)) return itemsTotalPrice;
 
     Double discountedPrice = calculateDiscountedPriceForApples(itemsTotalPrice, purchasedAppleQty, apple);
 
@@ -59,5 +56,11 @@ public class ItemDiscount {
 
   private long countOfStockItemsByType(ArrayList<StockItem> purchasedItems, StockItem.ItemName itemName) {
     return purchasedItems.stream().filter(item -> item.getItemId() == itemName.getValue()).count();
+  }
+
+  private boolean notPurchasedBetweenYesterdayForSevenDays(LocalDate purchasedDate) {
+    LocalDate yesterday = LocalDate.now().minusDays(1);
+    if (purchasedDate.isBefore(yesterday)) return true;
+    return false;
   }
 }

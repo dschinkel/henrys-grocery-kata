@@ -39,7 +39,7 @@ public class Register {
   }
 
   private Double getTotalPrice(ArrayList<StockItem> purchasedItems) {
-    return registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    return registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems,  null);
   }
 
   private boolean noItems(Map<Integer, Integer> itemsWithQuantity) {

@@ -29,8 +29,9 @@ public class RegisterCalculatorTest {
     StockItem soup = createStockItem(0,1);
     purchasedItems.add(soup);
     Double expectedTotalPrice = .65;
+    LocalDate dateToday = LocalDate.now();
 
-    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -40,8 +41,9 @@ public class RegisterCalculatorTest {
     StockItem bread = createStockItem(1,1);
     purchasedItems.add(bread);
     Double expectedTotalPrice = .80;
+    LocalDate dateToday = LocalDate.now();
 
-    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -51,8 +53,9 @@ public class RegisterCalculatorTest {
     StockItem milk = createStockItem(2,1);
     purchasedItems.add(milk);
     Double expectedTotalPrice = 1.30;
+    LocalDate dateToday = LocalDate.now();
 
-    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -62,8 +65,9 @@ public class RegisterCalculatorTest {
     StockItem apples = createStockItem(3,1);
     purchasedItems.add(apples);
     Double expectedTotalPrice = .09;
+    LocalDate dateToday = LocalDate.now().plusDays(3);
 
-    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -75,8 +79,9 @@ public class RegisterCalculatorTest {
     StockItem milk = createStockItem(2,1);
     purchasedItems.add(milk);
     Double expectedTotalPrice = 1.95;
+    LocalDate dateToday = LocalDate.now();
 
-    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
 
     assertEquals(expectedTotalPrice, total);
   }
@@ -88,11 +93,11 @@ public class RegisterCalculatorTest {
     purchasedItems.add(apple);
     purchasedItems.add(apple);
     Double expectedTotalPrice = .27;
+    LocalDate dateToday = LocalDate.now().plusDays(3);
 
-    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems);
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
     assertEquals(expectedTotalPrice, total);
   }
-
 
   private StockItem createStockItem(Integer itemId, Integer quantity) {
     StockItem stockItem = new StockItem();
