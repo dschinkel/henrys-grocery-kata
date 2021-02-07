@@ -52,8 +52,7 @@ public class ItemDiscountTest {
   @Test
   void sixApples_and_oneBottleOfMilk_purchasedThreeDaysFromToday() {
     addItemsToPurchasedItems(APPLE, 6);
-    StockItem milk = stockItemsDB.get(MILK.getValue());
-    purchasedItems.add(milk);
+    addItemsToPurchasedItems(MILK, 1);
     Double baseTotalPrice = 1.84;
     LocalDate dateToday = LocalDate.now().plusDays(5);
 
@@ -66,11 +65,10 @@ public class ItemDiscountTest {
   void apples_purchased_today() {
     addItemsToPurchasedItems(APPLE, 3);
     LocalDate dateToday = LocalDate.now();
-
     Double baseTotalPrice = .30;
+    Double expectedDiscountedPrice = .30;
 
     Double discountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateToday);
-    Double expectedDiscountedPrice = .30;
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
@@ -79,11 +77,10 @@ public class ItemDiscountTest {
   void apples_purchased_threeDaysFromToday() {
     addItemsToPurchasedItems(APPLE, 3);
     LocalDate dateThreeDaysFromToday = LocalDate.now().plusDays(3);
-
     Double baseTotalPrice = .30;
+    Double expectedDiscountedPrice = .27;
 
     Double discountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateThreeDaysFromToday);
-    Double expectedDiscountedPrice = .27;
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
@@ -95,5 +92,4 @@ public class ItemDiscountTest {
       purchasedItems.add(item);
     }
   }
-
 }

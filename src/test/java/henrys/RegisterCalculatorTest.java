@@ -111,6 +111,19 @@ public class RegisterCalculatorTest {
     assertEquals(baseTotalPrice, total);
   }
 
+  @Test
+  void threeApples_twoSoup_oneBread_purchasedFiveDaysFromToday() {
+    addItemsToPurchasedItems(APPLE, 3);
+    addItemsToPurchasedItems(SOUP, 2);
+    addItemsToPurchasedItems(BREAD, 1);
+    Double baseTotalPrice = 1.97;
+    LocalDate dateToday = LocalDate.now().plusDays(5);
+
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
+
+    assertEquals(baseTotalPrice, total);
+  }
+
   private StockItem createStockItem(Integer itemId, Integer quantity) {
     StockItem stockItem = new StockItem();
     stockItem.setItemId(itemId);
