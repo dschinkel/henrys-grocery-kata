@@ -4,10 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static henrys.StockItem.ItemName.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +23,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_purchasedItems_soup() {
-    StockItem soup = createStockItem(0,1);
+    StockItem soup = createStockItem(SOUP.getValue(),1);
     purchasedItems.add(soup);
     Double expectedTotalPrice = .65;
     LocalDate dateToday = LocalDate.now();
@@ -38,7 +35,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_purchasedItems_bread() {
-    StockItem bread = createStockItem(1,1);
+    StockItem bread = createStockItem(BREAD.getValue(),1);
     purchasedItems.add(bread);
     Double expectedTotalPrice = .80;
     LocalDate dateToday = LocalDate.now();
@@ -50,7 +47,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_purchasedItems_oneMilk() {
-    StockItem milk = createStockItem(2,1);
+    StockItem milk = createStockItem(MILK.getValue(),1);
     purchasedItems.add(milk);
     Double expectedTotalPrice = 1.30;
     LocalDate dateToday = LocalDate.now();
@@ -62,7 +59,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_purchasedItems_oneApple_discounted() {
-    StockItem apples = createStockItem(3,1);
+    StockItem apples = createStockItem(APPLE.getValue(),1);
     purchasedItems.add(apples);
     Double expectedTotalPrice = .09;
     LocalDate dateToday = LocalDate.now().plusDays(3);
@@ -74,9 +71,9 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_multiplePurchasedItems() {
-    StockItem soup = createStockItem(0,1);
+    StockItem soup = createStockItem(SOUP.getValue(),1);
     purchasedItems.add(soup);
-    StockItem milk = createStockItem(2,1);
+    StockItem milk = createStockItem(MILK.getValue(),1);
     purchasedItems.add(milk);
     Double expectedTotalPrice = 1.95;
     LocalDate dateToday = LocalDate.now();
@@ -98,6 +95,26 @@ public class RegisterCalculatorTest {
     Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
     assertEquals(expectedTotalPrice, total);
   }
+
+  @Test
+  void sixApples_and_oneBottleOfMilk_purchasedToday() {
+    StockItem apple = createStockItem(APPLE.getValue(),1);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    purchasedItems.add(apple);
+    StockItem milk = createStockItem(MILK.getValue(),1);
+    purchasedItems.add(milk);
+    Double baseTotalPrice = 1.90;
+    LocalDate dateToday = LocalDate.now();
+
+    Double total = registerCalculator.tallyTotalForPurchasedStockItems(purchasedItems, dateToday);
+
+    assertEquals(baseTotalPrice, total);
+  }
+
 
   private StockItem createStockItem(Integer itemId, Integer quantity) {
     StockItem stockItem = new StockItem();
