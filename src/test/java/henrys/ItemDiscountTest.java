@@ -26,15 +26,8 @@ public class ItemDiscountTest {
 
   @Test
   void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_purchasedDateOutOfRangeOfDiscount() {
-    StockItem soup = stockItemsDB.get(SOUP.getValue());
-    soup.setQuantityPurchased(1);
-    purchasedItems.add(soup);
-    purchasedItems.add(soup);
-    purchasedItems.add(soup);
-    StockItem bread = stockItemsDB.get(BREAD.getValue());
-    bread.setQuantityPurchased(1);
-    purchasedItems.add(bread);
-    purchasedItems.add(bread);
+    addItemsToPurchasedItems(SOUP, 3);
+    addItemsToPurchasedItems(BREAD, 2);
     Double baseTotalPrice = 3.55;
     LocalDate dateTwoDaysAgo = LocalDate.now().minusDays(2);
 
@@ -45,15 +38,8 @@ public class ItemDiscountTest {
 
   @Test
   void threeSoup_twoLoavesBread_purchasedDateToday() {
-    StockItem soup = stockItemsDB.get(SOUP.getValue());
-    soup.setQuantityPurchased(1);
-    purchasedItems.add(soup);
-    purchasedItems.add(soup);
-    purchasedItems.add(soup);
-    StockItem bread = stockItemsDB.get(BREAD.getValue());
-    bread.setQuantityPurchased(1);
-    purchasedItems.add(bread);
-    purchasedItems.add(bread);
+    addItemsToPurchasedItems(SOUP, 3);
+    addItemsToPurchasedItems(BREAD, 2);
     Double baseTotalPrice = 3.55;
     LocalDate dateTwoDaysAgo = LocalDate.now();
     Double expectdDiscountedPrice = 3.15;
@@ -65,13 +51,7 @@ public class ItemDiscountTest {
 
   @Test
   void sixApples_and_oneBottleOfMilk_purchasedThreeDaysFromToday() {
-    StockItem apple = stockItemsDB.get(APPLE.getValue());
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
+    addItemsToPurchasedItems(APPLE, 6);
     StockItem milk = stockItemsDB.get(MILK.getValue());
     purchasedItems.add(milk);
     Double baseTotalPrice = 1.84;
@@ -84,11 +64,7 @@ public class ItemDiscountTest {
 
   @Test
   void apples_purchased_today() {
-    StockItem apple = stockItemsDB.get(StockItem.ItemName.APPLE.getValue());
-    apple.setQuantityPurchased(1);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
+    addItemsToPurchasedItems(APPLE, 3);
     LocalDate dateToday = LocalDate.now();
 
     Double baseTotalPrice = .30;
@@ -101,11 +77,7 @@ public class ItemDiscountTest {
 
   @Test
   void apples_purchased_threeDaysFromToday() {
-    StockItem apple = stockItemsDB.get(StockItem.ItemName.APPLE.getValue());
-    apple.setQuantityPurchased(1);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
+    addItemsToPurchasedItems(APPLE, 3);
     LocalDate dateThreeDaysFromToday = LocalDate.now().plusDays(3);
 
     Double baseTotalPrice = .30;
@@ -114,6 +86,14 @@ public class ItemDiscountTest {
     Double expectedDiscountedPrice = .27;
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
+  }
+
+  private void addItemsToPurchasedItems(StockItem.ItemName itemName, Integer howManyToAdd) {
+    StockItem item = stockItemsDB.get(itemName.getValue());
+    item.setQuantityPurchased(1);
+    for (int i = 0; i < howManyToAdd; i++) {
+      purchasedItems.add(item);
+    }
   }
 
 }

@@ -17,14 +17,13 @@ public class RegisterCalculatorTest {
   @BeforeEach
   void setUp() {
     registerCalculator = new RegisterCalculator();
-    purchasedItems = new ArrayList<StockItem>();
+    purchasedItems = new ArrayList<>();
     stockItemsDB = new StockItemRepository().findAll();
   }
 
   @Test
   void calculates_totalPrice_purchasedItems_soup() {
-    StockItem soup = createStockItem(SOUP.getValue(),1);
-    purchasedItems.add(soup);
+    addItemsToPurchasedItems(SOUP, 1);
     Double expectedTotalPrice = .65;
     LocalDate dateToday = LocalDate.now();
 
@@ -35,8 +34,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_purchasedItems_bread() {
-    StockItem bread = createStockItem(BREAD.getValue(),1);
-    purchasedItems.add(bread);
+    addItemsToPurchasedItems(BREAD, 1);
     Double expectedTotalPrice = .80;
     LocalDate dateToday = LocalDate.now();
 
@@ -47,8 +45,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_purchasedItems_oneMilk() {
-    StockItem milk = createStockItem(MILK.getValue(),1);
-    purchasedItems.add(milk);
+    addItemsToPurchasedItems(MILK, 1);
     Double expectedTotalPrice = 1.30;
     LocalDate dateToday = LocalDate.now();
 
@@ -59,8 +56,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_purchasedItems_oneApple_discounted() {
-    StockItem apples = createStockItem(APPLE.getValue(),1);
-    purchasedItems.add(apples);
+    addItemsToPurchasedItems(APPLE, 1);
     Double expectedTotalPrice = .09;
     LocalDate dateToday = LocalDate.now().plusDays(3);
 
@@ -71,10 +67,8 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_multiplePurchasedItems() {
-    StockItem soup = createStockItem(SOUP.getValue(),1);
-    purchasedItems.add(soup);
-    StockItem milk = createStockItem(MILK.getValue(),1);
-    purchasedItems.add(milk);
+    addItemsToPurchasedItems(SOUP, 1);
+    addItemsToPurchasedItems(MILK, 1);
     Double expectedTotalPrice = 1.95;
     LocalDate dateToday = LocalDate.now();
 
@@ -85,10 +79,7 @@ public class RegisterCalculatorTest {
 
   @Test
   void calculates_totalPrice_withDiscount_forApples() {
-    StockItem apple = createStockItem(APPLE.getValue(),1);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
+    addItemsToPurchasedItems(APPLE, 3);
     Double expectedTotalPrice = .27;
     LocalDate dateToday = LocalDate.now().plusDays(3);
 
@@ -98,15 +89,8 @@ public class RegisterCalculatorTest {
 
   @Test
   void sixApples_and_oneBottleOfMilk_purchasedToday() {
-    StockItem apple = createStockItem(APPLE.getValue(),1);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    StockItem milk = createStockItem(MILK.getValue(),1);
-    purchasedItems.add(milk);
+    addItemsToPurchasedItems(APPLE, 6);
+    addItemsToPurchasedItems(MILK, 1);
     Double baseTotalPrice = 1.90;
     LocalDate dateToday = LocalDate.now();
 
@@ -117,15 +101,8 @@ public class RegisterCalculatorTest {
 
   @Test
   void sixApples_and_oneBottleOfMilk_purchasedFiveDaysFromToday() {
-    StockItem apple = createStockItem(APPLE.getValue(),1);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    purchasedItems.add(apple);
-    StockItem milk = createStockItem(MILK.getValue(),1);
-    purchasedItems.add(milk);
+    addItemsToPurchasedItems(APPLE, 6);
+    addItemsToPurchasedItems(MILK, 1);
     Double baseTotalPrice = 1.84;
     LocalDate dateToday = LocalDate.now().plusDays(5);
 
@@ -140,5 +117,12 @@ public class RegisterCalculatorTest {
     stockItem.setQuantityPurchased(quantity);
     stockItem.setPricePerUnit(stockItemsDB.get(itemId).getItemPricePerUnit());
     return stockItem;
+  }
+
+  private void addItemsToPurchasedItems(StockItem.ItemName itemName, Integer howManyToAdd) {
+    StockItem stockItem = createStockItem(itemName.getValue(),1);
+    for (int i = 0; i < howManyToAdd; i++) {
+      purchasedItems.add(stockItem);
+    }
   }
 }
