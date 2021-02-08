@@ -12,6 +12,13 @@ This is a simple exercise to allow you to demostrate your software engineering s
   5. Any other tools or libraries used must be freely available. Any third-party jars must be accessible via [maven central](https://mvnrepository.com/repos/central).
   6. The specification is below.
   
+## Running the Kata
+
+- `./gradlew run`
+  
+### Tests: 
+I used IntelliJ's test runner.  Click the green arrow on the `src/test` folder and run all tests.  or `./gradlew test`
+
 ## Specification
 
 A local shop, Henry’s Grocery, has asked you to author an IT solution for them to price up a basket of shopping for their customers.
