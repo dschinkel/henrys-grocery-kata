@@ -28,7 +28,7 @@ public class CommandLineUITest {
   @Test
   void displayStartMessage() {
     ui.displayStartMessage();
-    assertTrue(output.toString().contains("READY FOR CHECKOUT!\n"));
+    assertTrue(output.toString().contains("🛒READY FOR CHECKOUT!🍎\n"));
   }
 
   @Test

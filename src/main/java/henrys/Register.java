@@ -8,7 +8,7 @@ import java.util.Map;
 public class Register {
   private final RegisterUI ui;
   private final StockItemRepository stockItemRepository;
-  private RegisterCalculator registerCalculator;
+  private final RegisterCalculator registerCalculator;
   ArrayList<StockItem> stockItemsDB;
 
   Register(RegisterUI ui, StockItemRepository stockItemRepository, RegisterCalculator registerCalculator) {

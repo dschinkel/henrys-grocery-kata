@@ -16,8 +16,6 @@ public class StockItem {
     return pricePerUnit;
   }
 
-
-
   public void setItemId(int itemId) {
     this.itemId = itemId;
   }

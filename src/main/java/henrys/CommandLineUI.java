@@ -32,7 +32,7 @@ public class CommandLineUI implements RegisterUI {
   }
 
   public void displayStartMessage() {
-    outputStream.println("READY FOR CHECKOUT!");
+    outputStream.println("🛒READY FOR CHECKOUT!🍎");
   }
 
   public void displayItemsForSelection(ArrayList<StockItem> stockItems) {
