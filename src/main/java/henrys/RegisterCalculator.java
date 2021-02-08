@@ -7,16 +7,19 @@ import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class RegisterCalculator {
 
-  private final ItemDiscount itemDiscount;
+  private final AppleDiscount appleDiscount;
+  private SoupDiscount soupDiscount;
 
-  public RegisterCalculator(ItemDiscount itemDiscount) {
-    this.itemDiscount = itemDiscount;
+  public RegisterCalculator(AppleDiscount appleDiscount, SoupDiscount soupDiscount) {
+    this.soupDiscount = soupDiscount;
+    this.appleDiscount = appleDiscount;
   }
 
   public double tallyTotalForPurchasedStockItems(ArrayList<StockItem> purchasedItems, LocalDate purchasedDate) {
     double total;
     total = tallyTotalWithoutDiscounts(purchasedItems);
-    total = this.itemDiscount.applyDiscounts(purchasedItems, total, purchasedDate);
+    total = this.appleDiscount.applyDiscounts(purchasedItems, total, purchasedDate);
+    total = this.soupDiscount.applyDiscounts(purchasedItems, total, purchasedDate);
 
     return formatDoubleToPrecisionOfTwo(total);
   }
@@ -24,7 +27,7 @@ public class RegisterCalculator {
   private double tallyTotalWithoutDiscounts(ArrayList<StockItem> purchasedItems) {
     double total = 0.00;
     for (StockItem stockItem : purchasedItems) {
-      total += stockItem.calculateStockItemTotalCost();
+      total += stockItem.formatStockItemTotalCost();
     }
     return formatDoubleToPrecisionOfTwo(total);
   }

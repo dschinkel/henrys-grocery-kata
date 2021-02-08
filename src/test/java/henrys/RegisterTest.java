@@ -14,12 +14,14 @@ class RegisterTest {
   private StockItemRepository repository;
   private Register register;
   private RegisterCalculator registerCalculator;
+  private SoupDiscount soupDiscount;
 
   @BeforeEach
   void setUp() {
     repository = new StockItemRepository();
-    ItemDiscount itemDiscount = new ItemDiscount(repository);
-    registerCalculator = new RegisterCalculator(itemDiscount);
+    AppleDiscount appleDiscount = new AppleDiscount(repository);
+    soupDiscount = new SoupDiscount(repository);
+    registerCalculator = new RegisterCalculator(appleDiscount, soupDiscount);
     register = new Register(ui, repository, registerCalculator);
   }
 

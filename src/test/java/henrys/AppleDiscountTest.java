@@ -9,58 +9,22 @@ import java.util.ArrayList;
 import static henrys.Constants.ItemName.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ItemDiscountTest {
+public class AppleDiscountTest {
 
   ArrayList<StockItem> stockItemsDB;
   RegisterCalculator registerCalculator;
-  ItemDiscount itemDiscount;
+  AppleDiscount appleDiscount;
   ArrayList<StockItem> purchasedItems;
+  private SoupDiscount soupDiscount;
 
   @BeforeEach
   void setUp() {
     StockItemRepository stockItemRepository = new StockItemRepository();
     stockItemsDB = stockItemRepository.findAll();
-    itemDiscount = new ItemDiscount(stockItemRepository);
-    registerCalculator = new RegisterCalculator(itemDiscount);
+    appleDiscount = new AppleDiscount(stockItemRepository);
+    soupDiscount = new SoupDiscount(stockItemRepository);
+    registerCalculator = new RegisterCalculator(appleDiscount, soupDiscount);
     purchasedItems = new ArrayList<>();
-  }
-
-  @Test
-  void threeSoup_twoLoavesBread_getOneloafOfBread_halfOff_noDiscount_whenPurchasedPriorToYesterday() {
-    addToPurchasedItems(SOUP, 3);
-    addToPurchasedItems(BREAD, 2);
-    double baseTotalPrice = 3.55;
-    LocalDate dateTwoDaysAgo = LocalDate.now().minusDays(2);
-
-    double nonDiscountedPrice = itemDiscount.twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotalPrice, dateTwoDaysAgo);
-
-    assertEquals(baseTotalPrice, nonDiscountedPrice);
-  }
-
-  @Test
-  void threeSoup_twoLoavesBread_withDiscount_purchasedDateToday() {
-    addToPurchasedItems(SOUP, 3);
-    addToPurchasedItems(BREAD, 2);
-    double baseTotalPrice = 3.55;
-    double expectdDiscountedPrice = 3.15;
-    LocalDate dateTwoDaysAgo = LocalDate.now();
-
-    double discountedPrice = itemDiscount.twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotalPrice, dateTwoDaysAgo);
-
-    assertEquals(expectdDiscountedPrice, discountedPrice);
-  }
-
-  @Test
-  void threeSoup_twoLoavesBread_withDiscount_purchasedYesterday() {
-    addToPurchasedItems(SOUP, 3);
-    addToPurchasedItems(BREAD, 2);
-    double baseTotalPrice = 3.55;
-    double expectdDiscountedPrice = 3.15;
-    LocalDate dateTwoDaysAgo = LocalDate.now().minusDays(1);
-
-    double discountedPrice = itemDiscount.twoSoupGetOneLoafBreadHalfOff(purchasedItems, baseTotalPrice, dateTwoDaysAgo);
-
-    assertEquals(expectdDiscountedPrice, discountedPrice);
   }
 
   @Test
@@ -70,7 +34,7 @@ public class ItemDiscountTest {
     double baseTotalPrice = .30;
     double expectedDiscountedPrice = .30;
 
-    double discountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateToday);
+    double discountedPrice = appleDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateToday);
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
@@ -82,7 +46,7 @@ public class ItemDiscountTest {
     double baseTotalPrice = .30;
     double expectedDiscountedPrice = .27;
 
-    double discountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateThreeDaysFromToday);
+    double discountedPrice = appleDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateThreeDaysFromToday);
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
@@ -94,7 +58,7 @@ public class ItemDiscountTest {
     double baseTotalPriceWithoutDiscount = 1.90;
     LocalDate dateToday = LocalDate.now();
 
-    double discountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPriceWithoutDiscount, dateToday);
+    double discountedPrice = appleDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPriceWithoutDiscount, dateToday);
 
     assertEquals(baseTotalPriceWithoutDiscount, discountedPrice);
   }
@@ -107,7 +71,7 @@ public class ItemDiscountTest {
     double expectedDiscountedPrice = 1.84;
     LocalDate dateToday = LocalDate.now().plusDays(3);
 
-    double discountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateToday);
+    double discountedPrice = appleDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, dateToday);
 
     assertEquals(expectedDiscountedPrice, discountedPrice);
   }
@@ -118,7 +82,7 @@ public class ItemDiscountTest {
     double baseTotalPrice = .30;
     LocalDate afterEndOfNextMonth = LocalDate.now().plusMonths(1).plusDays(1);
 
-    double nonDiscountedPrice = itemDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, afterEndOfNextMonth);
+    double nonDiscountedPrice = appleDiscount.applyAppleTenPercentDiscount(purchasedItems, baseTotalPrice, afterEndOfNextMonth);
 
     assertEquals(baseTotalPrice, nonDiscountedPrice);
   }

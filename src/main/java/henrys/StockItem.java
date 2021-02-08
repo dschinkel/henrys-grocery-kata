@@ -3,7 +3,6 @@ package henrys;
 import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class StockItem {
-  private int quantityPurchased = 0;
   private int itemId;
   private String itemName;
   private double pricePerUnit = 0.0;
@@ -32,11 +31,7 @@ public class StockItem {
     this.pricePerUnit = pricePerUnit;
   }
 
-  public int getQuantityPurchased() {
-    return quantityPurchased;
-  }
-
-  double calculateStockItemTotalCost() {
+  double formatStockItemTotalCost() {
     return formatDoubleToPrecisionOfTwo(pricePerUnit);
   }
 }
