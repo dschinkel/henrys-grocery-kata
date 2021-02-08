@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static henrys.Constants.ItemName.*;
+import static henrys.StockItem.countOfStockItemsByType;
 import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class AppleDiscount {
@@ -48,9 +49,5 @@ public class AppleDiscount {
     LocalDate endOfMonth = LocalDate.now().plusMonths(1);
     boolean notPurchasedWithinValidDateRange = purchasedDate.isBefore(threeDaysFromToday) || purchasedDate.isAfter(endOfMonth);
     return notPurchasedWithinValidDateRange;
-  }
-
-  private long countOfStockItemsByType(ArrayList<StockItem> purchasedItems, Constants.ItemName itemName) {
-    return purchasedItems.stream().filter(item -> item.getItemId() == itemName.getValue()).count();
   }
 }

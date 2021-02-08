@@ -1,5 +1,7 @@
 package henrys;
 
+import java.util.ArrayList;
+
 import static henrys.Utilities.formatDoubleToPrecisionOfTwo;
 
 public class StockItem {
@@ -33,5 +35,9 @@ public class StockItem {
 
   double formatStockItemTotalCost() {
     return formatDoubleToPrecisionOfTwo(pricePerUnit);
+  }
+
+  public static long countOfStockItemsByType(ArrayList<StockItem> purchasedItems, Constants.ItemName itemName) {
+    return purchasedItems.stream().filter(item -> item.getItemId() == itemName.getValue()).count();
   }
 }

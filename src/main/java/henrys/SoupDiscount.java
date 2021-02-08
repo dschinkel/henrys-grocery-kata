@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import static henrys.Constants.ItemName.BREAD;
 import static henrys.Constants.ItemName.SOUP;
+import static henrys.StockItem.countOfStockItemsByType;
 
 public class SoupDiscount {
   private final ArrayList<StockItem> stockItemsDB;
@@ -32,10 +33,6 @@ public class SoupDiscount {
   private boolean lessThanTwoSoupsPurchased(ArrayList<StockItem> purchasedItems) {
     long purchasedSoupQty = countOfStockItemsByType(purchasedItems, SOUP);
     return purchasedSoupQty < 2;
-  }
-
-  private long countOfStockItemsByType(ArrayList<StockItem> purchasedItems, Constants.ItemName itemName) {
-    return purchasedItems.stream().filter(item -> item.getItemId() == itemName.getValue()).count();
   }
 
   private boolean notPurchasedBetweenYesterdayForSevenDays(LocalDate purchasedDate) {
